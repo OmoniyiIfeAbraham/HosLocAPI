@@ -2,6 +2,14 @@ const express = require("express");
 const router = express.Router();
 const cloudinary = require("cloudinary");
 const { createNewUser, authenticateUser } = require("./controller");
+const auth = require("./../../../middleware/auth");
+
+// protected route
+router.get("/private_data", auth, (req, res) => {
+  res
+    .status(200)
+    .send(`You're in the private territory of ${req.currentUser.email}`);
+});
 
 // login
 router.post("/", async (req, res) => {
