@@ -3,6 +3,9 @@ const router = express.Router();
 const cloudinary = require("cloudinary");
 const { createNewUser, authenticateUser } = require("./controller");
 const auth = require("./../../../middleware/auth");
+const {
+  sendVerificationOTPEmail,
+} = require("./../email_verification/controller");
 
 // protected route
 router.get("/private_data", auth, (req, res) => {
@@ -76,6 +79,7 @@ router.post("/signup", async (req, res) => {
           profilePic: upload.secure_url,
           profilePicID: upload.public_id,
         });
+        await sendVerificationOTPEmail(email);
         res.status(200).json(newUser);
       } else {
         throw Error("Invalid Image File Type");

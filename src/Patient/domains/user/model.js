@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   dob: String,
   password: String,
   token: String,
+  verified: { type: Boolean, default: false },
 });
 
 const User = mongoose.model("User", UserSchema);
