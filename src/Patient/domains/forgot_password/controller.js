@@ -1,5 +1,27 @@
 const User = require("./../user/model");
-const { sendOTP } = require("./../otp/controller");
+const { sendOTP, verifyOTP, deleteOTP } = require("./../otp/controller");
+const { hashData } = require("./../../../util/hashData");
+
+const resetUserPassword = async ({ email, otp, newPassword }) => {
+  try {
+    const validOTP = await verifyOTP({ email, otp });
+    if (!validOTP) {
+      throw Error("Invalid code passed. Check your inbox.");
+    }
+
+    // now update user record with a new password.
+    if (newPassword.length < 8) {
+      throw Error("Password is too short!");
+    }
+    const hashedNewPassword = await hashData(newPassword);
+    await User.updateOne({ email }, { password: hashedNewPassword });
+    await deleteOTP(email);
+
+    return;
+  } catch (error) {
+    throw Error;
+  }
+};
 
 const sendPasswordResetOTPEmail = async (email) => {
   try {
@@ -26,4 +48,4 @@ const sendPasswordResetOTPEmail = async (email) => {
   }
 };
 
-module.exports = { sendPasswordResetOTPEmail };
+module.exports = { sendPasswordResetOTPEmail, resetUserPassword };
