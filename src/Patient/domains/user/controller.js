@@ -3,13 +3,6 @@ const { hashData, verifyHashedData } = require("../../../util/hashData");
 const createToken = require("./../../../util/createToken");
 
 const authenticateUser = async (data) => {
-  class CustomError extends Error {
-    constructor(message, status) {
-      super(message);
-      this.name = this.constructor.name;
-      this.status = status;
-    }
-  }
   try {
     const { email, password } = data;
 
@@ -72,7 +65,12 @@ const createNewUser = async (data) => {
     const existinguser = await User.findOne({ email });
 
     if (existinguser) {
-      throw Error("User with the provided email already exists");
+      // throw Error("User with the provided email already exists");
+      const val = {
+        message: "User with the provided email already exists",
+        status: "FAILED",
+      };
+      return val;
     } else {
       // hash password
       const hashedPassword = await hashData(password);
@@ -86,7 +84,7 @@ const createNewUser = async (data) => {
       });
       // save user
       const createdUser = await newUser.save();
-      return createdUser;
+      return { message: "Signup Successful", status: "SUCCESS", createdUser };
     }
   } catch (error) {
     throw error;

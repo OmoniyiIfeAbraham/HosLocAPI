@@ -48,13 +48,27 @@ router.post("/signup", async (req, res) => {
     password = password.trim();
 
     if (!(name && email && dob && password)) {
-      throw Error("Empty input fields!");
+      // throw Error("Empty input fields!");
+      const val = {
+        message: "Empty input fields!",
+        status: "FAILED",
+      };
+      return val;
     } else if (!/^[a-zA-Z ]*$/.test(name)) {
-      throw Error("Invalid name entered");
+      // throw Error("Invalid name entered");
+      res
+        .status(400)
+        .send({ message: "Invalid name entered", status: "FAILED" });
     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      throw Error("Invalid email entered");
+      // throw Error("Invalid email entered");
+      res
+        .status(400)
+        .send({ message: "Invalid email entered", status: "FAILED" });
     } else if (password.length < 8) {
-      throw Error("Password is too short!");
+      // throw Error("Password is too short!");
+      res
+        .status(400)
+        .send({ message: "Password is too short!", status: "FAILED" });
     } else {
       const profile = req.files.profilePicture;
       if (
@@ -87,7 +101,10 @@ router.post("/signup", async (req, res) => {
         await sendVerificationOTPEmail(email);
         res.status(200).json(newUser);
       } else {
-        throw Error("Invalid Image File Type");
+        // throw Error("Invalid Image File Type");
+        res
+          .status(400)
+          .send({ message: "Invalid Image File Type", status: "FAILED" });
       }
     }
   } catch (error) {
