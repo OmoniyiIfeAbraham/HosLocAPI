@@ -2,7 +2,7 @@ const User = require("./model");
 const { hashData, verifyHashedData } = require("../../../util/hashData");
 const createToken = require("./../../../util/createToken");
 
-const authenticateUser = async (data, res) => {
+const authenticateUser = async (data) => {
   class CustomError extends Error {
     constructor(message, status) {
       super(message);
@@ -16,8 +16,9 @@ const authenticateUser = async (data, res) => {
     const fetchedUser = await User.findOne({ email });
 
     if (!fetchedUser) {
-      throw new CustomError("Invalid email entered!", "FAILED");
+      const val = { message: "Invalid email entered!", status: "FAILED" };
       // throw Error("Invalid email entered!");
+      return val;
       // throw Error({ message: "Invalid email entered!", status: "FAILED" });
       // res
       //   .status(400)
@@ -52,7 +53,7 @@ const authenticateUser = async (data, res) => {
 
     // assign user token
     fetchedUser.token = token;
-    return fetchedUser;
+    return { message: "Logged In Successful!", status: "SUCCESS", fetchedUser };
   } catch (error) {
     throw error;
   }
