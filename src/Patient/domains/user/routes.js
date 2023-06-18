@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
         .send({ message: "Empty credentials supllied!", status: "FAILED" });
     }
 
-    const authenticatedUser = await authenticateUser({ email, password });
+    const authenticatedUser = await authenticateUser({ email, password, res });
 
     res.status(200).json({
       message: "Logged In Successful!",
