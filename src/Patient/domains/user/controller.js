@@ -46,6 +46,7 @@ const authenticateUser = async (data) => {
         message: "Invalid password entered!",
         status: "FAILED",
       };
+      return val;
       // res
       //   .status(400)
       //   .send({ message: "Invalid password entered!", status: "FAILED" });
