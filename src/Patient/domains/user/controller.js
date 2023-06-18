@@ -17,8 +17,8 @@ const authenticateUser = async (data) => {
 
     if (!fetchedUser) {
       const val = { message: "Invalid email entered!", status: "FAILED" };
-      // throw Error("Invalid email entered!");
       return val;
+      // throw Error("Invalid email entered!");
       // throw Error({ message: "Invalid email entered!", status: "FAILED" });
       // res
       //   .status(400)
@@ -27,10 +27,11 @@ const authenticateUser = async (data) => {
 
     if (!fetchedUser.verified) {
       // throw Error("Email hasn't been verified yet. Check your inbox.");
-      throw Error({
+      const val = {
         message: "Email hasn't been verified yet. Check your inbox.",
         status: "FAILED",
-      });
+      };
+      return val;
       // res.status(400).send({
       //   message: "Email hasn't been verified yet. Check your inbox.",
       //   status: "FAILED",
@@ -41,7 +42,10 @@ const authenticateUser = async (data) => {
     const passwordMatch = await verifyHashedData(password, hashedPassword);
     if (!passwordMatch) {
       // throw Error("Invalid password entered!");
-      throw Error({ message: "Invalid password entered!", status: "FAILED" });
+      const val = {
+        message: "Invalid password entered!",
+        status: "FAILED",
+      };
       // res
       //   .status(400)
       //   .send({ message: "Invalid password entered!", status: "FAILED" });
