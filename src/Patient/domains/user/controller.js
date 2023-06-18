@@ -59,7 +59,8 @@ const authenticateUser = async (data) => {
 
 const createNewUser = async (data) => {
   try {
-    const { name, email, dob, password, profilePic, profilePicID } = data;
+    // const { name, email, dob, password, profilePic, profilePicID } = data;
+    const { name, email, dob, password } = data;
 
     // checking if user already exists
     const existinguser = await User.findOne({ email });
@@ -79,8 +80,8 @@ const createNewUser = async (data) => {
         email,
         dob,
         password: hashedPassword,
-        profilePic,
-        profilePicID,
+        // profilePic,
+        // profilePicID,
       });
       // save user
       const createdUser = await newUser.save();
