@@ -3,16 +3,22 @@ const { hashData, verifyHashedData } = require("../../../util/hashData");
 const createToken = require("./../../../util/createToken");
 
 const authenticateUser = async (data, res) => {
+  class CustomError extends Error {
+    constructor(message, status) {
+      super(message);
+      this.name = this.constructor.name;
+      this.status = status;
+    }
+  }
   try {
     const { email, password } = data;
 
     const fetchedUser = await User.findOne({ email });
 
     if (!fetchedUser) {
+      throw new CustomError("Invalid email entered!", "FAILED");
       // throw Error("Invalid email entered!");
-      throw Error(
-        JSON.stringify({ message: "Invalid email entered!", status: "FAILED" })
-      );
+      // throw Error({ message: "Invalid email entered!", status: "FAILED" });
       // res
       //   .status(400)
       //   .send({ message: "Invalid email entered!", status: "FAILED" });
