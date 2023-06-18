@@ -22,18 +22,19 @@ router.post("/", async (req, res) => {
     password = password.trim();
 
     if (!(email && password)) {
-      throw Error("Empty credentials supllied!");
+      // throw Error("Empty credentials supllied!");
+      res
+        .status(400)
+        .send({ message: "Empty credentials supllied!", status: "FAILED" });
     }
 
     const authenticatedUser = await authenticateUser({ email, password });
 
-    res
-      .status(200)
-      .json({
-        message: "Logged In Successful!",
-        status: "SUCCESS",
-        authenticatedUser,
-      });
+    res.status(200).json({
+      message: "Logged In Successful!",
+      status: "SUCCESS",
+      authenticatedUser,
+    });
   } catch (error) {
     res.status(400).send(error.message);
   }

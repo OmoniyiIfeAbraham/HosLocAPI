@@ -9,17 +9,29 @@ const authenticateUser = async (data) => {
     const fetchedUser = await User.findOne({ email });
 
     if (!fetchedUser) {
-      throw Error("Invalid email entered!");
+      // throw Error("Invalid email entered!");
+      res
+        .status(400)
+        .send({ message: "Invalid email entered!", status: "FAILED" });
     }
 
     if (!fetchedUser.verified) {
-      throw Error("Email hasn't been verified yet. Check your inbox.");
+      // throw Error("Email hasn't been verified yet. Check your inbox.");
+      res
+        .status(400)
+        .send({
+          message: "Email hasn't been verified yet. Check your inbox.",
+          status: "FAILED",
+        });
     }
 
     const hashedPassword = fetchedUser.password;
     const passwordMatch = await verifyHashedData(password, hashedPassword);
     if (!passwordMatch) {
-      throw Error("Invalid password entered!");
+      // throw Error("Invalid password entered!");
+      res
+        .status(400)
+        .send({ message: "Invalid password entered!", status: "FAILED" });
     }
 
     // create user token
