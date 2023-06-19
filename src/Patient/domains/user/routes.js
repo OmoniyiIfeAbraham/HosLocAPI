@@ -70,42 +70,42 @@ router.post("/signup", async (req, res) => {
         .status(400)
         .send({ message: "Password is too short!", status: "FAILED" });
     } else {
-      const profile = req.files.profilePicture;
-      if (
-        profile.mimetype == "image/apng" ||
-        profile.mimetype == "image/avif" ||
-        profile.mimetype == "image/gif" ||
-        profile.mimetype == "image/jpeg" ||
-        profile.mimetype == "image/png" ||
-        profile.mimetype == "image/svg+xml" ||
-        profile.mimetype == "image/webp"
-      ) {
-        const upload = await cloudinary.v2.uploader.upload(
-          profile.tempFilePath,
-          {
-            resource_type: "image",
-            folder: process.env.patientProfilePictureFolder,
-            use_filename: false,
-            unique_filename: true,
-          }
-        );
+      // const profile = req.files.profilePicture;
+      // if (
+      //   profile.mimetype == "image/apng" ||
+      //   profile.mimetype == "image/avif" ||
+      //   profile.mimetype == "image/gif" ||
+      //   profile.mimetype == "image/jpeg" ||
+      //   profile.mimetype == "image/png" ||
+      //   profile.mimetype == "image/svg+xml" ||
+      //   profile.mimetype == "image/webp"
+      // ) {
+      //   const upload = await cloudinary.v2.uploader.upload(
+      //     profile.tempFilePath,
+      //     {
+      //       resource_type: "image",
+      //       folder: process.env.patientProfilePictureFolder,
+      //       use_filename: false,
+      //       unique_filename: true,
+      //     }
+      //   );
       // good credentials, create new user
       const newUser = await createNewUser({
         name,
         email,
         dob,
         password,
-        profilePic: upload.secure_url,
-        profilePicID: upload.public_id,
+        // profilePic: upload.secure_url,
+        // profilePicID: upload.public_id,
       });
       await sendVerificationOTPEmail(email);
       res.status(200).json(newUser);
-      } else {
-        // throw Error("Invalid Image File Type");
-        res
-          .status(400)
-          .send({ message: "Invalid Image File Type", status: "FAILED" });
-      }
+      // } else {
+      //   // throw Error("Invalid Image File Type");
+      //   res
+      //     .status(400)
+      //     .send({ message: "Invalid Image File Type", status: "FAILED" });
+      // }
     }
   } catch (error) {
     res.status(400).send(error.message);

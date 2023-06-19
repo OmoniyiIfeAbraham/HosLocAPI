@@ -80,8 +80,8 @@ const createNewUser = async (data) => {
         email,
         dob,
         password: hashedPassword,
-        profilePic,
-        profilePicID,
+        // profilePic,
+        // profilePicID,
       });
       // save user
       const createdUser = await newUser.save();
