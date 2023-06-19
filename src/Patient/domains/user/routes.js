@@ -56,19 +56,34 @@ router.post("/signup", async (req, res) => {
       return val;
     } else if (!/^[a-zA-Z ]*$/.test(name)) {
       // throw Error("Invalid name entered");
-      res
-        .status(400)
-        .send({ message: "Invalid name entered", status: "FAILED" });
+      // res
+      //   .status(400)
+      //   .send({ message: "Invalid name entered", status: "FAILED" });
+      const val = {
+        message: "Invalid name entered",
+        status: "FAILED",
+      };
+      return val;
     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       // throw Error("Invalid email entered");
-      res
-        .status(400)
-        .send({ message: "Invalid email entered", status: "FAILED" });
+      // res
+      //   .status(400)
+      //   .send({ message: "Invalid email entered", status: "FAILED" });
+      const val = {
+        message: "Invalid email entered",
+        status: "FAILED",
+      };
+      return val;
     } else if (password.length < 8) {
       // throw Error("Password is too short!");
-      res
-        .status(400)
-        .send({ message: "Password is too short!", status: "FAILED" });
+      // res
+      //   .status(400)
+      //   .send({ message: "Password is too short!", status: "FAILED" });
+      const val = {
+        message: "Password is too short!",
+        status: "FAILED",
+      };
+      return val;
     } else {
       // const profile = req.files.profilePicture;
       // if (
