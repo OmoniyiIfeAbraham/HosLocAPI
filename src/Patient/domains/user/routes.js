@@ -49,41 +49,24 @@ router.post("/signup", async (req, res) => {
 
     if (!(name && email && dob && password)) {
       // throw Error("Empty input fields!");
-      const val = {
-        message: "Empty input fields!",
-        status: "FAILED",
-      };
-      return val;
+      res
+        .status(400)
+        .json({ message: "Empty input fields!", status: "FAILED" });
     } else if (!/^[a-zA-Z ]*$/.test(name)) {
       // throw Error("Invalid name entered");
-      // res
-      //   .status(400)
-      //   .send({ message: "Invalid name entered", status: "FAILED" });
-      const val = {
-        message: "Invalid name entered",
-        status: "FAILED",
-      };
-      return val;
+      res
+        .status(400)
+        .json({ message: "Invalid name entered", status: "FAILED" });
     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       // throw Error("Invalid email entered");
-      // res
-      //   .status(400)
-      //   .send({ message: "Invalid email entered", status: "FAILED" });
-      const val = {
-        message: "Invalid email entered",
-        status: "FAILED",
-      };
-      return val;
+      res
+        .status(400)
+        .json({ message: "Invalid email entered", status: "FAILED" });
     } else if (password.length < 8) {
       // throw Error("Password is too short!");
-      // res
-      //   .status(400)
-      //   .send({ message: "Password is too short!", status: "FAILED" });
-      const val = {
-        message: "Password is too short!",
-        status: "FAILED",
-      };
-      return val;
+      res
+        .status(400)
+        .json({ message: "Password is too short!", status: "FAILED" });
     } else {
       // const profile = req.files.profilePicture;
       // if (
