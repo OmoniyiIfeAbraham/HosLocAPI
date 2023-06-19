@@ -75,6 +75,34 @@ const createNewUser = async (data) => {
         status: "FAILED",
       };
       return val;
+    } else if (!(name && email && dob && password)) {
+      // throw Error("Empty input fields!");
+      const val = {
+        message: "Empty input fields!",
+        status: "FAILED",
+      };
+      return val;
+    } else if (!/^[a-zA-Z ]*$/.test(name)) {
+      // throw Error("Invalid name entered");
+      const val = {
+        message: "Invalid name entered",
+        status: "FAILED",
+      };
+      return val;
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      // throw Error("Invalid email entered");
+      const val = {
+        message: "Invalid email entered",
+        status: "FAILED",
+      };
+      return val;
+    } else if (password.length < 8) {
+      // throw Error("Password is too short!");
+      const val = {
+        message: "Password is too short!",
+        status: "FAILED",
+      };
+      return val;
     } else {
       // hash password
       const hashedPassword = await hashData(password);
