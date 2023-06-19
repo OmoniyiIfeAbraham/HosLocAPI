@@ -98,7 +98,6 @@ router.post("/signup", async (req, res) => {
         // profilePic: upload.secure_url,
         // profilePicID: upload.public_id,
       });
-      await sendVerificationOTPEmail(email);
       res.status(200).json(newUser);
       // } else {
       //   // throw Error("Invalid Image File Type");

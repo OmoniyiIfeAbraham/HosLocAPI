@@ -1,6 +1,9 @@
 const User = require("./model");
 const { hashData, verifyHashedData } = require("../../../util/hashData");
 const createToken = require("./../../../util/createToken");
+const {
+  sendVerificationOTPEmail,
+} = require("./../email_verification/controller");
 
 const authenticateUser = async (data) => {
   try {
@@ -85,6 +88,7 @@ const createNewUser = async (data) => {
       });
       // save user
       const createdUser = await newUser.save();
+      await sendVerificationOTPEmail(createdUser.email);
       return { message: "Signup Successful", status: "SUCCESS", createdUser };
     }
   } catch (error) {
