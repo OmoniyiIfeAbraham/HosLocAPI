@@ -65,9 +65,14 @@ app.use(
   "/hospitalRegister",
   require("./WebPortal/routes/HospitalSide/Register")
 );
+app.use("/hospitalLogin", require("./WebPortal/routes/HospitalSide/login"));
 app.use(
   "/completeProfile",
   require("./WebPortal/routes/HospitalSide/completeProfile")
+);
+app.use(
+  "/viewHospital",
+  require("./WebPortal/routes/SuperAdminSide/Hospitals/viewHospital")
 );
 
 module.exports = app;

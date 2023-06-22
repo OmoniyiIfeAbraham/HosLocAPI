@@ -3,13 +3,12 @@ const router = express.Router();
 
 const profileMod = require("./../../../models/HospitalSide/Profile/profile");
 
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
   const sess = req.session;
   if (sess.email && sess.password && sess.identifier === "admin") {
-    const hospitals = await profileMod.find();
-    // console.log(doctors)
-    // res.render('admin/doctors/doctors', { doctors, msg: '' })
-    res.render("SuperAdminSide/Hospitals/hospitals", { hospitals, msg: "" });
+    const info = await profileMod.findById({ _id: id });
+    res.render("SuperAdminSide/Hospitals/viewHospital", { info, msg: "" });
   } else {
     res.redirect("/super-adminLogin");
   }

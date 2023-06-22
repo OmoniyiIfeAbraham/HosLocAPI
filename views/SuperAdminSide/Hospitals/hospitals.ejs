@@ -124,7 +124,7 @@
                             <div class="card-header">
                                 <h4 class="card-title">Hospitals</h4>
                                 <p>
-                                    msg
+                                    <%= msg %>
                                 </p>
                             </div>
                             <div class="card-body">
@@ -133,6 +133,9 @@
                                         <thead class=" text-primary">
                                             <th>
                                                 Name
+                                            </th>
+                                            <th>
+                                                Age
                                             </th>
                                             <th>
                                                 Status
@@ -146,8 +149,46 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-
+                                                <% if (hospitals.length> 0) { %>
+                                                    <% hospitals.forEach(hospital=> { %>
+                                                        <% const birth=hospital.dateOfEstablishment %>
+                                                            <% const yob=birth.slice(0, 4) %>
+                                                                <% const yobN=parseInt(yob, 10) %>
+                                                                    <% const date=new Date() %>
+                                                                        <% const realDate=date.getFullYear() + '-' +
+                                                                            (date.getMonth() + 1) + '-' + date.getDay()
+                                                                            %>
+                                                                            <% const realYear=realDate.slice(0, 4) %>
+                                                                                <% const now=parseInt(realYear, 10) %>
+                                                                                    <% const age=now - yobN %>
+                                            <tr>
+                                                <td>
+                                                    <%= hospital.name %>
+                                                </td>
+                                                <td>
+                                                    <%= age %>
+                                                </td>
+                                                <% if (hospital.liscenceApprove==true) { %>
+                                                    <td>Approved</td>
+                                                    <% } else { %>
+                                                        <td>Pending</td>
+                                                        <% } %>
+                                                            <td><a href="/viewHospital/<%= hospital._id %>">View</a></td>
+                                                            <td class="text-right"><a
+                                                                    href="/deleteHospital/<%= hospital._id %>">Delete</a>
+                                                            </td>
                                             </tr>
+                                            <% }) %>
+                                                <% } else { %>
+                                                    <tr>
+                                                        <td>-----</td>
+                                                        <td>-----</td>
+                                                        <td>-----</td>
+                                                        <td>-----</td>
+                                                        <td class="text-right">-----</td>
+                                                    </tr>
+                                                    <% } %>
+                                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
