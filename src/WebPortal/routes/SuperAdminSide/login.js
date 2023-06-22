@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const patientMod = require("./../../../Patient/domains/user/model");
+
 router.get("/", (req, res) => {
   res.render("SuperAdminSide/login", {
     emailMsg: "",
@@ -42,14 +44,13 @@ router.post("/", async (req, res) => {
     });
   } else {
     // const doctors = await doctorMod.find();
-    // const patients = await patientMod.find();
+    const patients = await patientMod.find();
     // const schedules = await scheduleMod.find();
     sess.email = email;
     sess.password = password;
     sess.identifier = process.env.identifier;
     // console.log(sess)
-    // res.render("admin/home", { doctors, patients, schedules });
-    res.render("SuperAdminSide/index");
+    res.render("SuperAdminSide/index", { patients });
   }
 });
 

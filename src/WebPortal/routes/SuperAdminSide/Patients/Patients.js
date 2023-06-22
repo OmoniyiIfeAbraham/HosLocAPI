@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const patientMod = require("./../../../Patient/domains/user/model");
+const profileMod = require("./../../../../Patient/domains/user/model");
 
 router.get("/", async (req, res) => {
   const sess = req.session;
   if (sess.email && sess.password && sess.identifier === "admin") {
-    const patients = await patientMod.find();
-    res.render("SuperAdminSide/index", { patients });
+    const patients = await profileMod.find();
+    console.log(patients);
+    res.render("SuperAdminSide/Patients/Patients", { patients, msg: "" });
   } else {
     res.redirect("/super-adminLogin");
   }

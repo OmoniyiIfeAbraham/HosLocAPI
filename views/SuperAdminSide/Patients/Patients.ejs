@@ -46,7 +46,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="active ">
+                    <li>
                         <a href="/adminHospitals">
                             <i class="nc-icon nc-single-02"></i>
                             <p>Hospitals</p>
@@ -58,9 +58,9 @@
                             <p>Doctors</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active ">
                         <a href="/adminPatients">
-                            <i class="nc-icon nc-calendar-60"></i>
+                            <i class="nc-icon nc-circle-10"></i>
                             <p>Patients</p>
                         </a>
                     </li>
@@ -79,7 +79,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="/super-admin">Admin Dashboard</a>
+                        <a class="navbar-brand" href="/super-admin">SuperAdmin Dashboard</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,9 +122,9 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Hospitals</h4>
+                                <h4 class="card-title">Patients</h4>
                                 <p>
-                                    msg
+                                    <%= msg %>
                                 </p>
                             </div>
                             <div class="card-body">
@@ -132,22 +132,68 @@
                                     <table class="table">
                                         <thead class=" text-primary">
                                             <th>
-                                                Name
+                                                FullName
+                                            </th>
+                                            <th>
+                                                Age
+                                            </th>
+                                            <th>
+                                                Email
                                             </th>
                                             <th>
                                                 Status
-                                            </th>
-                                            <th>
-                                                View
                                             </th>
                                             <th class="text-right">
                                                 Delete
                                             </th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-
-                                            </tr>
+                                            <% if (patients.length> 0 ) { %>
+                                                <% patients.forEach(patient=> { %>
+                                                    <% const birth=patient.dob %>
+                                                        <% const yob=birth.slice(0, 4) %>
+                                                            <% const yobN=parseInt(yob, 10) %>
+                                                                <% const date=new Date() %>
+                                                                    <% const realDate=date.getFullYear() + '-' +
+                                                                        (date.getMonth() + 1) + '-' + date.getDay() %>
+                                                                        <% const realYear=realDate.slice(0, 4) %>
+                                                                            <% const now=parseInt(realYear, 10) %>
+                                                                                <% const age=now - yobN %>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <%= patient.name %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%= age %>
+                                                                                        </td>
+                                                                                        <td><a
+                                                                                                href="mailto:<%= patient.email %>">
+                                                                                                <%= patient.email %>
+                                                                                            </a></td>
+                                                                                            <% if (patient.verified === true) { %>
+                                                                                                <td>
+                                                                                                    Verified
+                                                                                                </td>
+                                                                                            <% } else { %>
+                                                                                                <td>
+                                                                                                    Not Verified
+                                                                                                </td>
+                                                                                            <% } %>
+                                                                                            
+                                                                                        <td class="text-right"><a
+                                                                                                href="/deletePatient/<%= patient._id %>">Delete</a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <% }) %>
+                                                                                        <% } else { %>
+                                                                                            <tr>
+                                                                                                <td>-----</td>
+                                                                                                <td>-----</td>
+                                                                                                <td>-----</td>
+                                                                                                <td class="text-rigth">
+                                                                                                    -----</td>
+                                                                                            </tr>
+                                                                                            <% } %>
                                         </tbody>
                                     </table>
                                 </div>

@@ -38,6 +38,9 @@ app.use(
 
 app.use("/api/v1", routes);
 
+// general routes
+app.use("/", require("./routes/index"));
+
 //  super admin routes
 app.use("/super-admin", require("./WebPortal/routes/SuperAdminSide/index"));
 app.use(
@@ -48,5 +51,12 @@ app.use(
   "/adminHospitals",
   require("./WebPortal/routes/SuperAdminSide/Hospitals/hospitals")
 );
+app.use(
+  "/adminPatients",
+  require("./WebPortal/routes/SuperAdminSide/Patients/Patients")
+);
+
+// hospital routes
+
 
 module.exports = app;
