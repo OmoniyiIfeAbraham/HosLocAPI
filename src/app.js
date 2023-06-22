@@ -57,6 +57,9 @@ app.use(
 );
 
 // hospital routes
-
+app.use(
+  "/hospitalRegister",
+  require("./WebPortal/routes/HospitalSide/Register")
+);
 
 module.exports = app;

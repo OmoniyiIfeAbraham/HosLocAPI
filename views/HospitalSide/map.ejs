@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hospital Registration</title>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDH4V2zCyC_R7C7jpxQ45i-2ufWV-0eoBY&libraries=places"></script>
+</head>
+
+<body>
+    <h1>Hospital Registration</h1>
+
+    <form id="registrationForm">
+        <label for="name">Hospital Name:</label>
+        <input type="text" id="name" required>
+
+        <input type="text" id="details" required placeholder="details">
+
+        <label for="address">Hospital Address:</label>
+        <input type="text" id="address" placeholder="Enter hospital address" required>
+
+        <button onclick="openMap()">Select Location</button>
+
+        <input type="submit" value="Register">
+    </form>
+
+    <script>
+        function initializeAutocomplete() {
+            const input = document.getElementById('address');
+            const autocomplete = new google.maps.places.Autocomplete(input);
+
+            autocomplete.addListener('place_changed', function () {
+                const place = autocomplete.getPlace();
+
+                if (!place.geometry) {
+                    window.alert('Invalid address');
+                    return;
+                }
+
+                const name = place.name || '';
+                const address = place.formatted_address || '';
+
+                console.log(place)
+
+                document.getElementById('name').value = name;
+                document.getElementById('address').value = address;
+            });
+        }
+
+        function openMap() {
+            // Open Google Maps in a new window
+            window.open('https://www.google.com/maps', '_blank');
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            // Retrieve form values
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+
+            // Log form values to console
+            console.log('Name:', name);
+            console.log('Address:', address);
+
+
+            // You can now submit the form or perform further processing
+            // For demonstration purposes, we're just logging the values here
+        }
+
+        // Attach form submission handler
+        const form = document.getElementById('registrationForm');
+        form.addEventListener('submit', handleFormSubmit);
+
+        // Initialize autocomplete on page load
+        window.addEventListener('load', initializeAutocomplete);
+    </script>
+</body>
+
+</html>
