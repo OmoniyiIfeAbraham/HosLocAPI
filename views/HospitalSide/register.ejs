@@ -313,11 +313,11 @@
                 <%= msg %>
             </p>
             <label for="file" style="color: white; margin-left: 20px; font-size: small;">Upload Hospital Pic</label>
-            <input type="file" name="profilePicture" id="profilePicture" required>
+            <input type="file" name="picture" id="picture" required>
             <input type="text" name="address" id="address" required placeholder="Address">
-            <input type="text" name="name" id="name" required placeholder="Hospital Name">
-            <input type="text" name="types" id="types" required placeholder="Hospital Types">
-            <input type="text" name="phone" id="phone" placeholder="Phone Number">
+            <input type="text" name="name" id="name" required placeholder="Hospital Name" readonly>
+            <input type="hidden" name="types" id="types" required placeholder="Hospital Types" readonly>
+            <input type="text" name="phone" id="phone" placeholder="Phone Number" readonly>
             <input type="text" name="email" placeholder="Email" required>
             <label class="select" for="slct">
                 <select id="slct" required="required" name="size">

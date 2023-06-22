@@ -48,76 +48,77 @@ router.post('/', async(req, res) => {
     console.log(email)
 
 
-    // try {
-    //     if (Firstname != null && Lastname != null && Password != null && confirmPassword != null && Email != null && Gender != null && req.files != null) {
-    //         if (Firstname.length >= 3 && Lastname.length >= 3 && Password.length >= 6) {
-    //             if (Password == confirmPassword) {
-    //                 const verifyMail = await registerMod.findOne({ email: req.body.email })
-    //                 if (verifyMail) {
-    //                     res.render('doctor/auth/register', { msg: 'User with this Email already exists' })
-    //                 } else {
-    //                     const profile = req.files.profilePicture
-    //                     if (profile.mimetype=='image/apng' || profile.mimetype=='image/avif' ||profile.mimetype=='image/gif' || profile.mimetype=='image/jpeg' || profile.mimetype=='image/png' || profile.mimetype=='image/svg+xml' || profile.mimetype=='image/webp') {
-    //                         const upload = await cloudinary.v2.uploader.upload(profile.tempFilePath, { resource_type: 'image', folder: process.env.doctorProfilePictureFolder, use_filename: false, unique_filename: true })
-    //                         const doctor = new registerMod({
-    //                             profilePicture: upload.secure_url,
-    //                             firstname: Firstname,
-    //                             lastname: Lastname,
-    //                             password: bcrypt.hashSync(Password, 10),
-    //                             gender: Gender,
-    //                             email: Email,
-    //                             profilePublicID: upload.public_id
-    //                         })
-    //                         const saveDoctor = await doctor.save()
-    //                         const random = token.random(4)
-    //                         console.log(random)
-    //                         const auth = new authMod({
-    //                             uniqueID: saveDoctor._id,
-    //                             email: saveDoctor.email,
-    //                             otp: random
-    //                         })
-    //                         await auth.save()
-    //                         sess.email = req.body.email
-    //                         sess.password = req.body.password
-    //                         const mailOption={
-    //                             from: `${process.env.adminName} ${process.env.email}`,
-    //                             to: Email,
-    //                             subject: `${Firstname} ${Lastname} OTP`,
-    //                             html: `
-    //                                 <body>
-    //                                     <center><h3>Hello ${Firstname} ${Lastname} your OTP is...</h3></center>
-    //                                     <center><h1>${random}</h1></center>
-    //                                 </body>
-    //                             `
-    //                         }
-    //                         await systemMail.sendMail(mailOption)
-    //                         res.redirect('/doctorRegister/otp')
-    //                     } else {
-    //                         res.render('doctor/auth/register', { msg: 'Invalid Image File Type'})
-    //                     }
-    //                 }
-    //             } else {
-    //                 res.render('doctor/auth/register', { msg: 'Password and Confirm Password has to be the same' })
-    //             }
-    //         } else {
-    //             res.render('doctor/auth/register', { msg: 'Please fIll all Fields Correctly' })
-    //         }
-    //     } else {
-    //         res.render('doctor/auth/register', { msg: 'Please fill all the fields!' })
-    //     }
-    // } catch(err) {
-    //     console.log(err)
-    //     res.render('doctor/auth/register', { msg: 'An Error Occured!!!' })
-    // }
+    try {
+        if (address != null && name != null && password != null && confirmPassword != null && size != null && email != null && req.files != null) {
+            if (address.length >= 3 && name.length >= 3 && password.length >= 6) {
+                if (password == confirmPassword) {
+                    const verifyMail = await registerMod.findOne({ email: req.body.email })
+                    if (verifyMail) {
+                        res.render('HospitalSide/register', { msg: 'User with this Email already exists' })
+                    } else {
+                        const profile = req.files.picture
+                        if (profile.mimetype=='image/apng' || profile.mimetype=='image/avif' ||profile.mimetype=='image/gif' || profile.mimetype=='image/jpeg' || profile.mimetype=='image/png' || profile.mimetype=='image/svg+xml' || profile.mimetype=='image/webp') {
+                            const upload = await cloudinary.v2.uploader.upload(profile.tempFilePath, { resource_type: 'image', folder: process.env.hospitalPictureFolder, use_filename: false, unique_filename: true })
+                            const hospital = new registerMod({
+                                picture: upload.secure_url,
+                                name: name,
+                                address: address,
+                                phone: phone,
+                                size: size,
+                                password: bcrypt.hashSync(password, 10),
+                                email: email,
+                                picturePublicID: upload.public_id
+                            })
+                            const saveHospital = await hospital.save()
+                            const random = token.random(4)
+                            console.log(random)
+                            const auth = new authMod({
+                                uniqueID: saveHospital._id,
+                                email: saveHospital.email,
+                                otp: random
+                            })
+                            await auth.save()
+                            sess.email = req.body.email
+                            sess.password = req.body.password
+                            const mailOption={
+                                from: `${process.env.adminName} ${process.env.email}`,
+                                to: email,
+                                subject: `${name} OTP`,
+                                html: `
+                                    <body>
+                                        <center><h3>Hello ${name} your OTP is...</h3></center>
+                                        <center><h1>${random}</h1></center>
+                                    </body>
+                                `
+                            }
+                            await systemMail.sendMail(mailOption)
+                            res.redirect('/hospitalRegister/otp')
+                        } else {
+                            res.render('HospitalSide/register', { msg: 'Invalid Image File Type'})
+                        }
+                    }
+                } else {
+                    res.render('HospitalSide/register', { msg: 'Password and Confirm Password has to be the same' })
+                }
+            } else {
+                res.render('HospitalSide/register', { msg: 'Please fIll all Fields Correctly' })
+            }
+        } else {
+            res.render('HospitalSide/register', { msg: 'Please fill all the fields!' })
+        }
+    } catch(err) {
+        console.log(err)
+        res.render('HospitalSide/register', { msg: 'An Error Occured!!!' })
+    }
 })
 
 router.get('/otp', (req, res) => {
     const sess = req.session
     console.log(sess)
     if (sess.email && sess.password) {
-        res.render('doctor/auth/otp', { msg: '' })
+        res.render('HospitalSide/otp', { msg: '' })
     } else {
-        res.redirect('/home')
+        res.redirect('/')
     }
 })
 
@@ -131,13 +132,13 @@ router.post('/otp', async(req, res, next) => {
     const OTP = `${one}${two}${three}${four}`
     if(sess.email && sess.password) {
         try {
-            const doctorAuth = await authMod.findOne({ email: sess.email })
-            const doctorReg = await registerMod.findOne({ email: sess.email })
-            if (doctorAuth && doctorReg) {
+            const hospitalAuth = await authMod.findOne({ email: sess.email })
+            const hospitalReg = await registerMod.findOne({ email: sess.email })
+            if (hospitalAuth && hospitalReg) {
                 if (OTP != null) {
                     const check = await authMod.findOne({ email: sess.email })
                     if (OTP != check.otp) {
-                        res.render('doctor/auth/otp', { msg: 'Incorrect OTP' })
+                        res.render('HospitalSide/otp', { msg: 'Incorrect OTP' })
                     } else {
                         authMod.findOneAndUpdate({ email: sess.email }, { verified: true }, (err, docs) => {
                             if (err) {
@@ -151,25 +152,25 @@ router.post('/otp', async(req, res, next) => {
                                     } else {
                                         sess.identifier = 'doctor'
                                         console.log(sess)
-                                        res.redirect('/doctor')
+                                        res.redirect('/hospital')
                                     }
                                 })
                             }
                         })
                     }
                 } else {
-                    res.render('doctor/auth/otp', { msg: 'OTP cannot be Empty' })
+                    res.render('HospitalSide/otp', { msg: 'OTP cannot be Empty' })
                 }
             } else {
                 sess.destroy()
-                res.redirect('/home')
+                res.redirect('/')
             }
         } catch(err) {
             console.log(err)
-            res.render('doctor/auth/otp', { msg: 'An Error Occured!!!'})
+            res.render('HospitalSide/otp', { msg: 'An Error Occured!!!'})
         }
     } else {
-        res.redirect('/home')
+        res.redirect('/')
     }
 })
 
