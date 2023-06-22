@@ -1,9 +1,14 @@
-const express = require('express')
+const express = require("express");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('Register Your Hospital || Login To An Existing Account')
-})
+router.get("/", (req, res) => {
+  const sess = req.session;
+  if (sess.email && sess.password && sess.identifier === "admin") {
+    res.redirect("/super-admin");
+  } else {
+    res.render("index");
+  }
+});
 
-module.exports = router
+module.exports = router;

@@ -39,7 +39,7 @@ app.use(
 app.use("/api/v1", routes);
 
 // general routes
-app.use("/", require("./routes/index"));
+app.use("/", require("./WebPortal/routes/index"));
 
 //  super admin routes
 app.use("/super-admin", require("./WebPortal/routes/SuperAdminSide/index"));
