@@ -2,7 +2,8 @@
 require("./config/db");
 
 const express = require("express");
-const bodyParser = express.json;
+// const bodyParser = express.json;
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./routes");
 
@@ -21,7 +22,9 @@ const app = express();
 app.use(require("express-fileupload")({ useTempFiles: true }));
 
 app.use(cors());
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+// app.use(bodyParser());
 
 // templating
 app.set("view engine", "ejs");
@@ -57,9 +60,14 @@ app.use(
 );
 
 // hospital routes
+app.use("/hospital", require("./WebPortal/routes/HospitalSide/profile"));
 app.use(
   "/hospitalRegister",
   require("./WebPortal/routes/HospitalSide/Register")
+);
+app.use(
+  "/completeProfile",
+  require("./WebPortal/routes/HospitalSide/completeProfile")
 );
 
 module.exports = app;

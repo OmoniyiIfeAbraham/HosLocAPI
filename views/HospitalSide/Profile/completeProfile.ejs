@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital : Complete : Profile</title>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 500ms;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .overlay:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup {
+            margin: 70px auto;
+            padding: 20px;
+            background: rgb(33, 41, 66);
+            border-radius: 5px;
+            width: 30%;
+            position: relative;
+            transition: all 5s ease-in-out;
+            height: 450px;
+            text-align: center;
+        }
+
+        @media screen and (max-width: 950px) {
+            .popup {
+                width: 50%
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .popup {
+                width: 70%
+            }
+        }
+
+        @media screen and (max-width: 450px) {
+            .popup {
+                width: 90%
+            }
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #333;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .popup .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .popup .close:hover {
+            color: #06d85f;
+        }
+
+        .popup .content {
+            max-height: 90%;
+            overflow: auto;
+        }
+
+        .box h4 {
+            font-family: "Source Sans Pro", sans-serif;
+            color: #5c6bc0;
+            font-size: 18px;
+            margin-top: 24px;
+        }
+
+        .box h4 span {
+            color: #dfdeee;
+            font-weight: lighter;
+        }
+
+        input[type="date"] {
+            height: 35px;
+            margin: 0 auto;
+            width: 63%;
+            font-family: arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background-color: rgb(38, 46, 73);
+            outline: none;
+            border: 0;
+            border-radius: 3px;
+            padding: 0 3px;
+            color: #fff;
+        }
+
+        input[type="date"]::-webkit-datetime-edit-month-field {
+            color: red;
+        }
+
+        input[type="date"]::-webkit-datetime-edit-day-field {
+            color: white;
+        }
+
+        input[type="date"]::-webkit-datetime-edit-year-field {
+            color: blue;
+        }
+
+        input[type="date"]::-webkit-clear-button {
+            font-size: 18px;
+            height: 30px;
+            position: relative;
+            right: 5px;
+            margin-right: 4px;
+        }
+
+        input[type="date"]::-webkit-inner-spin-button {
+            height: 30px;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            font-size: 18px;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            background-color: #959595;
+            color: #e6e6e6;
+            cursor: pointer;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator:active {
+            color: blue;
+        }
+
+        .box input[type="text"],
+        .box input[type="password"] {
+            display: block;
+            margin: 20px auto;
+            background: #262e49;
+            border: 0;
+            border-radius: 5px;
+            padding: 14px 10px;
+            width: 80%;
+            outline: none;
+            color: #d6d6d6;
+            -webkit-transition: all 0.2s ease-out;
+            -moz-transition: all 0.2s ease-out;
+            -ms-transition: all 0.2s ease-out;
+            -o-transition: all 0.2s ease-out;
+            transition: all 0.2s ease-out;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #565f79;
+        }
+
+        .box input[type="text"]:focus,
+        .box input[type="password"]:focus {
+            border: 1px solid #79a6fe;
+        }
+
+        .select {
+            position: relative;
+            min-width: 10px;
+            background-color: rgb(33, 41, 66);
+        }
+
+        .select svg {
+            position: absolute;
+            right: 12px;
+            top: calc(50% - 3px);
+            width: 10px;
+            height: 6px;
+            stroke-width: 2px;
+            stroke: #9098a9;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            pointer-events: none;
+        }
+
+        .select select {
+            -webkit-appearance: none;
+            padding: 7px 40px 7px 12px;
+            width: 85%;
+            margin-bottom: 20px;
+            /* margin-left: 30px;
+  margin-right: 50px; */
+            border: 1px solid rgb(33, 41, 66);
+            border-radius: 5px;
+            background: rgb(33, 41, 66);
+            box-shadow: 0 1px 3px -2px #9098a9;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 16px;
+            transition: all 150ms ease;
+        }
+
+        .select select:required:invalid {
+            color: #565f79;
+        }
+
+        .select select option {
+            color: #fff;
+        }
+
+        .select select option[value=""][disabled] {
+            display: none;
+        }
+
+        .select select:focus {
+            outline: none;
+            border-color: #07f;
+            box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
+        }
+
+        .select select:hover+svg {
+            stroke: #07f;
+        }
+
+        .sprites {
+            position: absolute;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        input[type="file"]::file-selector-button {
+            border: 2px solid #6c5ce7;
+            padding: 0.2em 0.4em;
+            border-radius: 0.2em;
+            background-color: #a29bfe;
+            transition: 1s;
+        }
+
+        input[type="file"]::-ms-browse:hover {
+            background-color: #81ecec;
+            border: 2px solid #00cec9;
+        }
+
+        input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #81ecec;
+            border: 2px solid #00cec9;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #81ecec;
+            border: 2px solid #00cec9;
+        }
+
+        .btn1 {
+            border: 0;
+            background: #7f5feb;
+            color: #dfdeee;
+            border-radius: 100px;
+            width: 75%;
+            height: 49px;
+            font-size: 16px;
+            position: absolute;
+            top: 79%;
+            left: 12%;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn1:hover {
+            background: #5d33e6;
+        }
+    </style>
+</head>
+
+<body onload="All()">
+    <div id="<%= id %>" class="overlay animated bounceInDown">
+        <!-- <p><%= check %></p> -->
+        <!-- <p><%= msg %></p> -->
+        <div class="popup">
+            <a class="close" href="" style="color: white;">&times;</a>
+            <div class="content">
+                <form action="/completeProfile/<%= id %>" method="POST" enctype="multipart/form-data" class="box">
+                    <h4>Complete <span>Profile</span></h4>
+                    <p style="color: red;">
+                        <%= msg %>
+                    </p>
+                    <label for="dateOfEstablishment" style="color: white; margin-left: 5px; font-size: small;">Date of
+                        Establishment: </label>
+                    <input type="date" name="dateOfEstablishment" id="dateOfEstablishment" required>
+                    <br>
+                    <br>
+                    <br>
+                    <label for="file" style="color: white; margin-left: 20px; font-size: small;">Hospitals
+                        Liscence:</label>
+                    <input type="file" name="liscence" id="liscence " required>
+                    <input type="submit" value="Submit" class="btn1">
+                </form>
+            </div>
+        </div>
+    </div>
+
+      <script>
+        function load() {
+            window.location.href = "#<%= id %>";
+        }
+        function All(){
+          console.log("<%= check %>")
+          <%= !check %> ? load() : null
+        }
+      </script>
+</body>
+
+</html>
