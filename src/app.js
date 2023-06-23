@@ -74,5 +74,9 @@ app.use(
   "/viewHospital",
   require("./WebPortal/routes/SuperAdminSide/Hospitals/viewHospital")
 );
+app.use(
+  "/approve",
+  require("./WebPortal/routes/SuperAdminSide/Hospitals/approve")
+);
 
 module.exports = app;
