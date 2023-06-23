@@ -82,5 +82,9 @@ app.use(
   "/viewPatients",
   require("./WebPortal/routes/HospitalSide/Patients/patients")
 );
+app.use(
+  "/viewDoctors",
+  require("./WebPortal/routes/HospitalSide/Doctors/doctors")
+);
 
 module.exports = app;
