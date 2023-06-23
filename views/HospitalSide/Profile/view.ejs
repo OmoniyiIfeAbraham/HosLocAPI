@@ -101,8 +101,8 @@
                     <div class="media align-items-end profile-header">
                         <div class="profile mr-3"><a href="<%= hospital.picture %>" target="_blank"><img
                                     src="<%= hospital.picture %>" alt="<%= hospital.name %>" width="130"
-                                    class="rounded mb-2 img-thumbnail"></a><a href="#UpdateProfilePicture"
-                                class="btn btn-dark btn-sm btn-block">Update Profile Picture</a></div>
+                                    class="rounded mb-2 img-thumbnail"></a><a href="#"
+                                class="btn btn-dark btn-sm btn-block">Profile Picture</a></div>
                         <div class="media-body mb-5 text-white">
                             <h4 class="mt-0 mb-0">
                                 <%= hospital.name %>
@@ -156,8 +156,8 @@
                                                     <p><b>Address:</b>
                                                         <%= hospital.address %>
                                                     </p>
-                                                    <a href="#UpdateProfile"
-                                                        class="btn btn-dark btn-sm btn-block">Update Profile Info</a>
+                                                    <a href="#"
+                                                        class="btn btn-dark btn-sm btn-block">Profile Info</a>
                 </div>
 
                 <div class="py-4 px-4">
@@ -170,202 +170,23 @@
                     <div class="row">
                         <% const ext=hospital.liscence.slice(-4) %>
                             <% if (ext=='.jpg' || ext=='.png' || ext=='jpeg' ) { %>
-                                <div class="col-lg-12 mb-2 pr-lg-1"><a href="<%= hospital.permit %>"
-                                        target="_blank"><img src="<%= hospital.permit %>"
-                                            alt="<%= hospital.firstname %> <%= hospital.lastname %>"
+                                <div class="col-lg-12 mb-2 pr-lg-1"><a href="<%= hospital.liscence %>"
+                                        target="_blank"><img src="<%= hospital.liscence %>" alt="<%= hospital.name %>"
                                             class="img-fluid rounded shadow-sm"></a></div>
-                                <!-- <img style="width: 100%; height: 100%; border-radius: 10%; margin-bottom: 10px;" src="<%= hospital.permit %>" alt="<%= hospital.firstname %> <%= hospital.lastname %>"> -->
                                 <% } else if (ext=='.pdf' || ext=='.doc' || ext=='.ppt' || ext=='docx' ) { %>
-                                    <div class="col-lg-6 mb-2 pr-lg-1"><a href="<%= hospital.permit %>"
-                                            target="_blank"><img src="/images/static_img.png"
-                                                alt="<%= hospital.firstname %> <%= hospital.lastname %>"
+                                    <div class="col-lg-6 mb-2 pr-lg-1"><a href="<%= hospital.liscence %>"
+                                            target="_blank"><img src="/images/static_img.png" alt="<%= hospital.name %>"
                                                 class="img-fluid rounded shadow-sm"></a></div>
-                                    <!-- <a href="<%= hospital.permit %>"><img style="width: 100%; height: 100%; border-radius: 10%; margin-bottom: 10px;" src="/images/static_img.png" alt="<%= hospital.firstname %> <%= hospital.lastname %>"></a> -->
                                     <% } %>
-                                        <a href="#UpdatePermit" class="btn btn-dark btn-sm btn-block">Update Permit
+                                        <a href="#" class="btn btn-dark btn-sm btn-block">Liscence
                                             Document</a>
                                         <!--  -->
-                                        <% if (ext=='.jpg' || ext=='.png' || ext=='jpeg' ) { %>
-                                            <div class="col-lg-12 mb-2 mt-2 pl-lg-1"><a href="<%= hospital.identity %>"
-                                                    target="_blank"><img src="<%= hospital.identity %>"
-                                                        alt="<%= hospital.firstname %> <%= hospital.lastname %>"
-                                                        class="img-fluid rounded shadow-sm"></a></div>
-                                            <!-- <img style="width: 100%; height: 100%; border-radius: 10%; margin-bottom: 10px;" src="<%= hospital.identity %>" alt="<%= hospital.firstname %> <%= hospital.lastname %>"> -->
-                                            <% } else if (ext=='.pdf' || ext=='.doc' || ext=='.ppt' || ext=='docx' ) {
-                                                %>
-                                                <div class="col-lg-12 mb-2 mt-2 pl-lg-1"><a
-                                                        href="<%= hospital.identity %>" target="_blank"><img
-                                                            src="<%= hospital.identity %>"
-                                                            alt="<%= hospital.firstname %> <%= hospital.lastname %>"
-                                                            class="img-fluid rounded shadow-sm"></a></div>
-                                                <!-- <a href="<%= hospital.identity %>"> <img style="width: 100%; height: 100%; border-radius: 10%; margin-bottom: 10px;" src="/images/static_img.png" alt="<%= hospital.firstname %> <%= hospital.lastname %>"></a> -->
-                                                <% } %>
-                                                    <a href="#UpdateIdentity"
-                                                        class="btn btn-dark btn-sm btn-block">Update Identity
-                                                        Document</a>
+
                     </div>
 
 
                 </div>
             </div><!-- End profile widget -->
-            <!--  -->
-            <div id="UpdateProfile" class="overlay">
-                <div class="popup">
-                    <a class="close" href="">&times;</a>
-                    <div class="content">
-                        <h1>Update Profile</h1>
-                        <p>
-                            <%= msg %>
-                        </p>
-                        <form action="/view/info/<%= hospital.uniqueID %>" method="post" enctype="multipart/form-data">
-                            <label for="firstname">Firstname: </label>
-                            <input type="text" name="firstname" id="firstname" value="<%= hospital.firstname %>"
-                                required>
-                            <br>
-                            <label for="lastname">Lastname: </label>
-                            <input type="text" name="lastname" id="lastname" value="<%= hospital.lastname %>" required>
-                            <br>
-                            <label for="gender">Gender: </label>
-                            <select name="gender" id="gender" required>
-                                <option value="<%= hospital.gender %>">
-                                    <%= hospital.gender %>
-                                </option>
-                                <% if (hospital.gender=='Male' ) { %>
-                                    <option value="Female">Female</option>
-                                    <% } else { %>
-                                        <option value="Female">Male</option>
-                                        <% } %>
-                            </select>
-                            <br>
-                            <label for="email">Email: </label>
-                            <input type="email" name="email" id="email" value="<%= hospital.email %>" required>
-                            <br>
-                            <label for="dob">Date of Birth: </label>
-                            <input type="date" name="dob" id="dob" value="<%= hospital.dob %>" required>
-                            <br>
-                            <label for="address">Current Address: </label>
-                            <input type="text" name="address" id="address" value="<%= hospital.address %>" required>
-                            <br>
-                            <label for="stateOfOrigin">State of Origin: </label>
-                            <select name="stateOfOrigin" id="stateOfOrigin" required>
-                                <option selected value="<%= hospital.stateOfOrigin %>">
-                                    <%= hospital.stateOfOrigin %>
-                                </option>
-                                <option value="Abia">Abia</option>
-                                <option value="Adamawa">Adamawa</option>
-                                <option value="Akwa Ibom">Akwa Ibom</option>
-                                <option value="Anambra">Anambra</option>
-                                <option value="Bauchi">Bauchi</option>
-                                <option value="Bayelsa">Bayelsa</option>
-                                <option value="Benue">Benue</option>
-                                <option value="Borno">Borno</option>
-                                <option value="Cross River">Cross River</option>
-                                <option value="Delta">Delta</option>
-                                <option value="Ebonyi">Ebonyi</option>
-                                <option value="Edo">Edo</option>
-                                <option value="Ekiti">Ekiti</option>
-                                <option value="Enugu">Enugu</option>
-                                <option value="FCT">Federal Capital Territory</option>
-                                <option value="Gombe">Gombe</option>
-                                <option value="Imo">Imo</option>
-                                <option value="Jigawa">Jigawa</option>
-                                <option value="Kaduna">Kaduna</option>
-                                <option value="Kano">Kano</option>
-                                <option value="Katsina">Katsina</option>
-                                <option value="Kebbi">Kebbi</option>
-                                <option value="Kogi">Kogi</option>
-                                <option value="Kwara">Kwara</option>
-                                <option value="Lagos">Lagos</option>
-                                <option value="Nasarawa">Nasarawa</option>
-                                <option value="Niger">Niger</option>
-                                <option value="Ogun">Ogun</option>
-                                <option value="Ondo">Ondo</option>
-                                <option value="Osun">Osun</option>
-                                <option value="Oyo">Oyo</option>
-                                <option value="Plateau">Plateau</option>
-                                <option value="Rivers">Rivers</option>
-                                <option value="Sokoto">Sokoto</option>
-                                <option value="Taraba">Taraba</option>
-                                <option value="Yobe">Yobe</option>
-                                <option value="Zamfara">Zamfara</option>
-                            </select>
-                            <br>
-                            <label for="maritalStatus">Marital Status: </label>
-                            <select name="maritalStatus" id="maritalStatus" required>
-                                <option selected value="<%= hospital.maritalStatus %>">
-                                    <%= hospital.maritalStatus %>
-                                </option>
-                                <option value="married">Married</option>
-                                <option value="single">Single</option>
-                                <option value="Divorced">Divorced</option>
-                                <option value="seperated">Separated</option>
-                            </select>
-                            <br>
-                            <input type="submit" value="Update">
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="UpdateProfilePicture" class="overlay">
-                <div class="popup">
-                    <a class="close" href="">&times;</a>
-                    <div class="content">
-                        <h1>Update Profile Picture</h1>
-                        <p>
-                            <%= msg %>
-                        </p>
-                        <form action="/view/profilePic/<%= hospital.uniqueID %>" method="post"
-                            enctype="multipart/form-data">
-                            <label for="profilePicture">Profile Picture: </label>
-                            <input type="file" name="profilePicture" id="profilePicture" required>
-                            <br>
-                            <input type="submit" value="Update">
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="UpdatePermit" class="overlay">
-                <div class="popup">
-                    <a class="close" href="">&times;</a>
-                    <div class="content">
-                        <h1>Update Permit Document</h1>
-                        <p>
-                            <%= msg %>
-                        </p>
-                        <form action="/view/permit/<%= hospital.uniqueID %>" method="post"
-                            enctype="multipart/form-data">
-                            <label for="permit">Permit Document: </label>
-                            <input type="file" name="permit" id="permitDocument" required>
-                            <br>
-                            <input type="submit" value="Update">
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="UpdateIdentity" class="overlay">
-                <div class="popup">
-                    <a class="close" href="">&times;</a>
-                    <div class="content">
-                        <h1>Update Identity Document</h1>
-                        <p>
-                            <%= msg %>
-                        </p>
-                        <form action="/view/identity/<%= hospital.uniqueID %>" method="post"
-                            enctype="multipart/form-data">
-                            <label for="identity">Identity Document: </label>
-                            <input type="file" name="identity" id="identityDocument" required>
-                            <br>
-                            <input type="submit" value="Update">
-                        </form>
-                    </div>
-                </div>
-            </div>
             <!--  -->
         </div>
     </div>

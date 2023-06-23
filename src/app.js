@@ -87,4 +87,7 @@ app.use(
   require("./WebPortal/routes/HospitalSide/Doctors/doctors")
 );
 
+// logout routes
+app.use("/logout", require("./WebPortal/routes/logout"));
+
 module.exports = app;
