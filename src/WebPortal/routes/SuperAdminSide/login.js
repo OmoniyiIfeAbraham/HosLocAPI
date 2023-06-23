@@ -4,6 +4,7 @@ const router = express.Router();
 
 const patientMod = require("./../../../Patient/domains/user/model");
 const hospitalMod = require("./../../models/HospitalSide/Profile/profile");
+const doctorMod = require("./../../models/HospitalSide/Doctor/doctor");
 
 router.get("/", (req, res) => {
   res.render("SuperAdminSide/login", {
@@ -44,7 +45,7 @@ router.post("/", async (req, res) => {
       msg: "",
     });
   } else {
-    // const doctors = await doctorMod.find();
+    const doctors = await doctorMod.find();
     const patients = await patientMod.find();
     const hospitals = await hospitalMod.find();
     // const schedules = await scheduleMod.find();
@@ -52,7 +53,7 @@ router.post("/", async (req, res) => {
     sess.password = password;
     sess.identifier = process.env.identifier;
     // console.log(sess)
-    res.render("SuperAdminSide/index", { patients, hospitals });
+    res.render("SuperAdminSide/index", { patients, hospitals, doctors });
   }
 });
 

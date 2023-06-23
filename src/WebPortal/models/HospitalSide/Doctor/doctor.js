@@ -34,6 +34,10 @@ const doctorRegister = new Schema({
     picturePublicID: {
         type: String,
         required: true
+    },
+    hospital: {
+        type: String,
+        required: true
     }
 })
 

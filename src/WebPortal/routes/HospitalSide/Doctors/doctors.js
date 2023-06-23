@@ -8,17 +8,17 @@ const hospitalMod = require("./../../../models/HospitalSide/Profile/profile");
 const doctorMod = require("./../../../models/HospitalSide/Doctor/doctor");
 
 const systemMail = mailer.createTransport({
-    service: process.env.service,
-    host: process.env.host,
-    port: 465,
-    auth: {
-      user: process.env.email,
-      pass: process.env.pass,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
+  service: process.env.service,
+  host: process.env.host,
+  port: 465,
+  auth: {
+    user: process.env.email,
+    pass: process.env.pass,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
 router.get("/", async (req, res) => {
   const sess = req.session;
@@ -98,6 +98,7 @@ router.post("/addDoctor/:id", async (req, res) => {
               password: password,
               email: email,
               picturePublicID: upload.public_id,
+              hospital: req.params.id,
             });
             await doctor.save();
             const mailOption = {
@@ -151,20 +152,20 @@ router.post("/addDoctor/:id", async (req, res) => {
 });
 
 router.get("/view/:id", async (req, res) => {
-    const sess = req.session;
-    if (sess.email && sess.password && sess.identifier === "hospital") {
-      const doctor = await profileMod.findOne({_id: req.params.id});
-      const you = await hospitalMod.findOne({ email: sess.email });
-      console.log(doctor);
-      res.render("HospitalSide/Doctors/view", {
-        doctor,
-        you,
-        unique: you.uniqueID,
-        msg: "",
-      });
-    } else {
-      res.redirect("/hospitalLogin");
-    }
-  });
+  const sess = req.session;
+  if (sess.email && sess.password && sess.identifier === "hospital") {
+    const doctor = await profileMod.findOne({ _id: req.params.id });
+    const you = await hospitalMod.findOne({ email: sess.email });
+    console.log(doctor);
+    res.render("HospitalSide/Doctors/view", {
+      doctor,
+      you,
+      unique: you.uniqueID,
+      msg: "",
+    });
+  } else {
+    res.redirect("/hospitalLogin");
+  }
+});
 
 module.exports = router;

@@ -53,7 +53,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/doctors">
+                        <a href="/adminDoctors">
                             <i class="nc-icon nc-circle-10"></i>
                             <p>Doctors</p>
                         </a>
@@ -108,7 +108,7 @@
                                     </p>
                                     <div class="dropdown-menu dropdown-menu-right"
                                         aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="/logout/admin">LOGOUT</a>
+                                        <a class="dropdown-item" href="/logout/super-admin">LOGOUT</a>
                                     </div>
                                 </a>
                             </li>
@@ -140,12 +140,12 @@
                                             <th>
                                                 Status
                                             </th>
-                                            <th>
+                                            <th class="text-right">
                                                 View
                                             </th>
-                                            <th class="text-right">
+                                            <!-- <th class="text-right">
                                                 Delete
-                                            </th>
+                                            </th> -->
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -173,10 +173,12 @@
                                                     <% } else { %>
                                                         <td>Pending</td>
                                                         <% } %>
-                                                            <td><a href="/viewHospital/<%= hospital._id %>">View</a></td>
                                                             <td class="text-right"><a
-                                                                    href="/deleteHospital/<%= hospital._id %>">Delete</a>
+                                                                    href="/viewHospital/<%= hospital._id %>">View</a>
                                                             </td>
+                                                            <!-- <td class="text-right"><a
+                                                                    href="/deleteHospital/<%= hospital._id %>">Delete</a>
+                                                            </td> -->
                                             </tr>
                                             <% }) %>
                                                 <% } else { %>
@@ -184,7 +186,7 @@
                                                         <td>-----</td>
                                                         <td>-----</td>
                                                         <td>-----</td>
-                                                        <td>-----</td>
+                                                        <!-- <td>-----</td> -->
                                                         <td class="text-right">-----</td>
                                                     </tr>
                                                     <% } %>

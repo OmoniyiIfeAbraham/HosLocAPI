@@ -59,6 +59,10 @@ app.use(
   require("./WebPortal/routes/SuperAdminSide/Patients/Patients")
 );
 app.use(
+  "/adminDoctors",
+  require("./WebPortal/routes/SuperAdminSide/Doctors/Patients")
+);
+app.use(
   "/viewHospital",
   require("./WebPortal/routes/SuperAdminSide/Hospitals/viewHospital")
 );

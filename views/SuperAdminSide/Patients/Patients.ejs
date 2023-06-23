@@ -53,7 +53,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/doctors">
+                        <a href="/adminDoctors">
                             <i class="nc-icon nc-circle-10"></i>
                             <p>Doctors</p>
                         </a>
@@ -108,7 +108,7 @@
                                     </p>
                                     <div class="dropdown-menu dropdown-menu-right"
                                         aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="/logout/admin">LOGOUT</a>
+                                        <a class="dropdown-item" href="/logout/super-admin">LOGOUT</a>
                                     </div>
                                 </a>
                             </li>
@@ -140,11 +140,8 @@
                                             <th>
                                                 Email
                                             </th>
-                                            <th>
-                                                Status
-                                            </th>
                                             <th class="text-right">
-                                                Delete
+                                                Status
                                             </th>
                                         </thead>
                                         <tbody>
@@ -170,19 +167,16 @@
                                                                                                 href="mailto:<%= patient.email %>">
                                                                                                 <%= patient.email %>
                                                                                             </a></td>
-                                                                                            <% if (patient.verified === true) { %>
-                                                                                                <td>
-                                                                                                    Verified
-                                                                                                </td>
+                                                                                        <% if (patient.verified===true)
+                                                                                            { %>
+                                                                                            <td class="text-right">
+                                                                                                Verified
+                                                                                            </td>
                                                                                             <% } else { %>
-                                                                                                <td>
+                                                                                                <td class="text-right">
                                                                                                     Not Verified
                                                                                                 </td>
-                                                                                            <% } %>
-                                                                                            
-                                                                                        <td class="text-right"><a
-                                                                                                href="/deletePatient/<%= patient._id %>">Delete</a>
-                                                                                        </td>
+                                                                                                <% } %>
                                                                                     </tr>
                                                                                     <% }) %>
                                                                                         <% } else { %>
@@ -190,7 +184,7 @@
                                                                                                 <td>-----</td>
                                                                                                 <td>-----</td>
                                                                                                 <td>-----</td>
-                                                                                                <td class="text-rigth">
+                                                                                                <td class="text-right">
                                                                                                     -----</td>
                                                                                             </tr>
                                                                                             <% } %>
