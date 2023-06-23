@@ -33,7 +33,7 @@ router.get("/liscence/:id", async (req, res, next) => {
         .then((result) => {
           async function mail() {
             const mailOption = {
-              from: `${process.env.adminName} ${process.env.superAdminEmail}`,
+              from: `${process.env.adminName} ${process.env.email}`,
               to: locate.email,
               subject: `${locate.name} LISCENCE APPROVE`,
               html: `
@@ -46,7 +46,7 @@ router.get("/liscence/:id", async (req, res, next) => {
             await systemMail.sendMail(mailOption);
           }
           mail();
-          res.redirect("/hospitals");
+          res.redirect("/super-admin");
         })
         .catch((error) => {
           console.log(error);
@@ -75,7 +75,7 @@ router.get("/revoke/:id", async (req, res, next) => {
         .then((result) => {
           async function mail() {
             const mailOption = {
-              from: `${process.env.adminName} ${process.env.superAdminEmail}`,
+              from: `${process.env.adminName} ${process.env.email}`,
               to: locate.email,
               subject: `${locate.name} DOCUMENTS REVOKED`,
               html: `
@@ -88,7 +88,7 @@ router.get("/revoke/:id", async (req, res, next) => {
             await systemMail.sendMail(mailOption);
           }
           mail();
-          res.redirect("/hospitals");
+          res.redirect("/super-admin");
         })
         .catch((error) => {
           console.log(error);
@@ -139,7 +139,7 @@ router.get("/decline/:id", async (req, res, next) => {
                     });
                   async function mail() {
                     const mailOption = {
-                      from: `${process.env.adminName} ${process.env.superAdminEmail}`,
+                      from: `${process.env.adminName} ${process.env.email}`,
                       to: person.email,
                       subject: `${person.name} ACCOUNT`,
                       html: `
@@ -153,7 +153,7 @@ router.get("/decline/:id", async (req, res, next) => {
                   }
                   mail();
                   sess.destroy();
-                  res.redirect("/hospitals");
+                  res.redirect("/super-admin");
                 })
                 .catch((error) => {
                   console.log(error);

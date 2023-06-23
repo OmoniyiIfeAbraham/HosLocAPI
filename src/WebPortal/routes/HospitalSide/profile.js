@@ -3,7 +3,7 @@ const router = express.Router();
 
 const registerMod = require("./../../models/HospitalSide/Register");
 const profileMod = require("./../../models/HospitalSide/Profile/profile");
-// const patientMod = require("./../../../models/patient/profile/profile");
+const patientMod = require("./../../../Patient/domains/user/model");
 // const scheduleMod = require("./../../../models/doctor/schedule/schedule");
 
 router.get("/", async (req, res) => {
@@ -23,13 +23,14 @@ router.get("/", async (req, res) => {
           msg: "",
         });
       } else if (you.liscenceApprove == true) {
-        // const patients = await patientMod.find();
+        const patients = await patientMod.find();
         // const schedules = await scheduleMod.find({ doctor: you._id });
         // console.log(schedules);
         res.render("HospitalSide/Profile/profile", {
           id: person._id,
           unique: profile._id,
           you,
+          patients
         });
       } else {
         res.render("HospitalSide/Profile/waiting");

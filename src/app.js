@@ -58,6 +58,14 @@ app.use(
   "/adminPatients",
   require("./WebPortal/routes/SuperAdminSide/Patients/Patients")
 );
+app.use(
+  "/viewHospital",
+  require("./WebPortal/routes/SuperAdminSide/Hospitals/viewHospital")
+);
+app.use(
+  "/approve",
+  require("./WebPortal/routes/SuperAdminSide/Hospitals/approve")
+);
 
 // hospital routes
 app.use("/hospital", require("./WebPortal/routes/HospitalSide/profile"));
@@ -71,12 +79,8 @@ app.use(
   require("./WebPortal/routes/HospitalSide/completeProfile")
 );
 app.use(
-  "/viewHospital",
-  require("./WebPortal/routes/SuperAdminSide/Hospitals/viewHospital")
-);
-app.use(
-  "/approve",
-  require("./WebPortal/routes/SuperAdminSide/Hospitals/approve")
+  "/viewPatients",
+  require("./WebPortal/routes/HospitalSide/Patients/patients")
 );
 
 module.exports = app;
