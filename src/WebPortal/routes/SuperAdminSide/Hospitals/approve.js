@@ -4,9 +4,9 @@ const router = express.Router();
 const mailer = require("nodemailer");
 const cloudinary = require("cloudinary");
 
-const profileMod = require("./../../../../models/HospitalSide/Profile/profile");
-const authMod = require("./../../../../models/HospitalSide/auth");
-const registerMod = require("./../../../../models/HospitalSide/Register");
+const profileMod = require("./../../../models/HospitalSide/Profile/profile");
+const authMod = require("./../../../models/HospitalSide/auth");
+const registerMod = require("./../../../models/HospitalSide/Register");
 
 const systemMail = mailer.createTransport({
   service: process.env.service,
