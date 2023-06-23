@@ -27,7 +27,7 @@ router.get("/liscence/:id", async (req, res, next) => {
     try {
       const id = req.params.id;
       const locate = await profileMod.findById({ _id: id });
-      console.log(locate);
+      // console.log(locate); needed
       profileMod
         .findByIdAndUpdate({ _id: id }, { liscenceApprove: true })
         .then((result) => {
@@ -69,7 +69,7 @@ router.get("/revoke/:id", async (req, res, next) => {
     try {
       const id = req.params.id;
       const locate = await profileMod.findById({ _id: id });
-      console.log(locate);
+      // console.log(locate); needed
       profileMod
         .findByIdAndUpdate({ _id: id }, { liscenceApprove: false })
         .then((result) => {
@@ -111,11 +111,11 @@ router.get("/decline/:id", async (req, res, next) => {
     try {
       const id = req.params.id;
       const person = await profileMod.findById({ _id: id });
-      console.log(person);
+      // console.log(person); needed
       const auth = await authMod.findOne({ uniqueID: person.uniqueID });
-      console.log(auth);
+      // console.log(auth); needed
       const register = await registerMod.findOne({ _id: person.uniqueID });
-      console.log(register);
+      // console.log(register); needed
       const registerPublicID = register.profilePublicID;
       const liscencePublicID = person.liscencePublicID;
       authMod

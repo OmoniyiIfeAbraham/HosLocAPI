@@ -40,15 +40,6 @@ router.post("/", async (req, res) => {
   const size = req.body.size;
   const email = req.body.email;
 
-  console.log(address);
-  console.log(name);
-  console.log(phone);
-  console.log(types);
-  console.log(password);
-  console.log(confirmPassword);
-  console.log(size);
-  console.log(email);
-
   // Check if the selected location is a hospital or healthcare-related establishment
   const isHospital = types.includes("hospital");
   const isClinic = types.includes("clinic");
@@ -118,7 +109,7 @@ router.post("/", async (req, res) => {
                 const saveHospital = await hospital.save();
                 // const otpVal = token.random(4);
                 const otpVal = generateOTP(4);
-                console.log(otpVal);
+                // console.log(otpVal); needed
                 const auth = new authMod({
                   uniqueID: saveHospital._id,
                   email: saveHospital.email,
@@ -174,7 +165,7 @@ router.post("/", async (req, res) => {
 
 router.get("/otp", (req, res) => {
   const sess = req.session;
-  console.log(sess);
+  // console.log(sess); needed
   if (sess.email && sess.password) {
     res.render("HospitalSide/otp", { msg: "" });
   } else {
@@ -184,7 +175,7 @@ router.get("/otp", (req, res) => {
 
 router.post("/otp", async (req, res, next) => {
   const sess = req.session;
-  console.log(sess);
+  // console.log(sess); needed
   const one = req.body.a;
   const two = req.body.b;
   const three = req.body.c;
@@ -219,31 +210,6 @@ router.post("/otp", async (req, res, next) => {
                 console.log(error);
                 next(error);
               });
-            // authMod.findOneAndUpdate(
-            //   { email: sess.email },
-            //   { verified: true },
-            //   (err, docs) => {
-            //     if (err) {
-            //       console.log(err);
-            //       next(err);
-            //     } else {
-            //       registerMod.findOneAndUpdate(
-            //         { email: sess.email },
-            //         { verified: true },
-            //         (err, docs) => {
-            //           if (err) {
-            //             console.log(err);
-            //             next(err);
-            //           } else {
-            //             sess.identifier = "hospital";
-            //             console.log(sess);
-            //             res.redirect("/hospital");
-            //           }
-            //         }
-            //       );
-            //     }
-            //   }
-            // );
           }
         } else {
           res.render("HospitalSide/otp", { msg: "OTP cannot be Empty" });

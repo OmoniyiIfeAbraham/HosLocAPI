@@ -12,8 +12,8 @@ router.post('/', async(req, res) => {
     const sess = req.session
     const loginEmail = req.body.email
     const loginPassword = req.body.password
-    console.log(loginEmail)
-    console.log(loginPassword)
+    // console.log(loginEmail) needed
+    // console.log(loginPassword) needed
     try {
         if (loginPassword.length >= 6) {
             const check = await registerMod.findOne({ email: loginEmail })

@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
     try {
       const profile = await registerMod.findOne({ email: sess.email });
       const you = await profileMod.findOne({ email: sess.email });
-      console.log(profile._id);
+      // console.log(profile._id); needed
       const person = await profileMod.findOne({ uniqueID: profile._id });
       if (profile.completeProfile == false) {
         const id = profile._id;
@@ -24,14 +24,14 @@ router.get("/", async (req, res) => {
         });
       } else if (you.liscenceApprove == true) {
         const patients = await patientMod.find();
-        const doctors = await doctorMod.find();
+        const doctors = await doctorMod.find({ hospital: you._id });
         // console.log(schedules);
         res.render("HospitalSide/Profile/profile", {
           id: person._id,
           unique: profile._id,
           you,
           patients,
-          doctors
+          doctors,
         });
       } else {
         res.render("HospitalSide/Profile/waiting");
@@ -45,14 +45,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get('/view/:unique', async (req, res) => {
-  const sess = req.session
-  if (sess.email && sess.password && sess.identifier === 'hospital') {
-      const hospital = await profileMod.findOne({ uniqueID: req.params.unique })
-      res.render('HospitalSide/Profile/view', { hospital, msg: '' })
+router.get("/view/:unique", async (req, res) => {
+  const sess = req.session;
+  if (sess.email && sess.password && sess.identifier === "hospital") {
+    const hospital = await profileMod.findOne({ uniqueID: req.params.unique });
+    res.render("HospitalSide/Profile/view", { hospital, msg: "" });
   } else {
-      res.redirect('/hospitalLogin')
+    res.redirect("/hospitalLogin");
   }
-})
+});
 
 module.exports = router;

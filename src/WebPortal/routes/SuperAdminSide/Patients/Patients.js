@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   const sess = req.session;
   if (sess.email && sess.password && sess.identifier === "admin") {
     const patients = await profileMod.find();
-    console.log(patients);
+    // console.log(patients); needed
     res.render("SuperAdminSide/Patients/Patients", { patients, msg: "" });
   } else {
     res.redirect("/super-adminLogin");

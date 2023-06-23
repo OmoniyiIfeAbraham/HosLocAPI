@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   if (sess.email && sess.password && sess.identifier === "hospital") {
     const patients = await profileMod.find();
     const you = await hospitalMod.findOne({ email: sess.email });
-    console.log(patients);
+    // console.log(patients); needed
     res.render("HospitalSide/Patients/patients", {
       patients,
       you,

@@ -23,9 +23,9 @@ const systemMail = mailer.createTransport({
 router.get("/", async (req, res) => {
   const sess = req.session;
   if (sess.email && sess.password && sess.identifier === "hospital") {
-    const doctors = await profileMod.find();
     const you = await hospitalMod.findOne({ email: sess.email });
-    console.log(doctors);
+    const doctors = await profileMod.find({hospital: you._id});
+    // console.log(doctors); needed
     res.render("HospitalSide/Doctors/doctors", {
       doctors,
       you,
@@ -48,7 +48,7 @@ router.post("/addDoctor/:id", async (req, res) => {
 
   try {
     const you = hospitalMod.findById({ _id: req.params.id });
-    const doctors = await profileMod.find();
+    const doctors = await profileMod.find({hospital: req.params.id});
     if (
       address != null &&
       name != null &&
@@ -156,7 +156,7 @@ router.get("/view/:id", async (req, res) => {
   if (sess.email && sess.password && sess.identifier === "hospital") {
     const doctor = await profileMod.findOne({ _id: req.params.id });
     const you = await hospitalMod.findOne({ email: sess.email });
-    console.log(doctor);
+    // console.log(doctor); needed
     res.render("HospitalSide/Doctors/view", {
       doctor,
       you,

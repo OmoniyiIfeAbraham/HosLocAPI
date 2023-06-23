@@ -2,9 +2,23 @@ const express = require("express");
 const router = express.Router();
 
 const cloudinary = require("cloudinary");
+const mailer = require("nodemailer");
 
 const registerMod = require("./../../models/HospitalSide/Register");
 const profileMod = require("./../../models/HospitalSide/Profile/profile");
+
+const systemMail = mailer.createTransport({
+  service: process.env.service,
+  host: process.env.host,
+  port: 465,
+  auth: {
+    user: process.env.email,
+    pass: process.env.pass,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
 router.post("/:id", async (req, res) => {
   // console.log(req.params.id)
@@ -78,24 +92,27 @@ router.post("/:id", async (req, res) => {
           registerMod
             .findOneAndUpdate({ _id: id }, { completeProfile: true })
             .then((result) => {
+              const mail = async () => {
+                const mailOption = {
+                  from: `${process.env.adminName} ${process.env.email}`,
+                  to: "ife04abraham@gmail.com",
+                  subject: `Verify Details`,
+                  html: `
+                                              <body>
+                                                  <center><h1>Hello Super Admin</h1></center>
+                                                  <center><h3>${person.name} are waiting for you to review and approve their Liscence Document on HosLoc!!!</h3></center>
+                                              </body>
+                                          `,
+                };
+                await systemMail.sendMail(mailOption);
+              };
+              mail();
               res.redirect("/hospital");
             })
             .catch((error) => {
               console.log(error);
               next(error);
             });
-          //   registerMod.findOneAndUpdate(
-          //     { _id: id },
-          //     { completeProfile: true },
-          //     (err, docs) => {
-          //       if (err) {
-          //         console.log(err);
-          //         next(err);
-          //       } else {
-          //         res.redirect("/hospital");
-          //       }
-          //     }
-          //   );
         }
       } else {
         res.render("HospitalSide/Profile/completeProfile", {

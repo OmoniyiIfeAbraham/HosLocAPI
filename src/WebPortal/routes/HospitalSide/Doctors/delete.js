@@ -29,7 +29,7 @@ router.get("/:id", async (req, res, next) => {
     const you = await hospitalMod.findOne({ email: sess.email });
     try {
       const register = await registerMod.findById({ _id: id });
-      console.log(register);
+    //   console.log(register); needed
       const registerPublicID = register.picturePublicID;
       registerMod
         .findByIdAndDelete({ _id: id })
