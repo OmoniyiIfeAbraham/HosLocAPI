@@ -86,6 +86,10 @@ app.use(
   "/viewDoctors",
   require("./WebPortal/routes/HospitalSide/Doctors/doctors")
 );
+app.use(
+  "/deleteDoctor",
+  require("./WebPortal/routes/HospitalSide/Doctors/delete")
+);
 
 // logout routes
 app.use("/logout", require("./WebPortal/routes/logout"));
