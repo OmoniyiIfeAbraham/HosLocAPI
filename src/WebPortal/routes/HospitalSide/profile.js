@@ -45,4 +45,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get('/view/:unique', async (req, res) => {
+  const sess = req.session
+  if (sess.email && sess.password && sess.identifier === 'hospital') {
+      const hospital = await profileMod.findOne({ uniqueID: req.params.unique })
+      res.render('HospitalSide/Profile/view', { hospital, msg: '' })
+  } else {
+      res.redirect('/hospitalLogin')
+  }
+})
+
 module.exports = router;
