@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= doctor.name %> || Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <style>
+        .overlay {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.7);
+          transition: opacity 500ms;
+          visibility: hidden;
+          opacity: 0;
+        }
+        .overlay:target {
+          visibility: visible;
+          opacity: 1;
+        }
+  
+        .popup {
+          margin: 70px auto;
+          padding: 20px;
+          background: #fff;
+          border-radius: 5px;
+          width: 30%;
+          position: relative;
+          transition: all 5s ease-in-out;
+        }
+  
+        .popup h2 {
+          margin-top: 0;
+          color: #333;
+          font-family: Tahoma, Arial, sans-serif;
+        }
+        .popup .close {
+          position: absolute;
+          top: 20px;
+          right: 30px;
+          transition: all 200ms;
+          font-size: 30px;
+          font-weight: bold;
+          text-decoration: none;
+          color: #333;
+        }
+        .popup .close:hover {
+          color: #06d85f;
+        }
+        .popup .content {
+          max-height: 30%;
+          overflow: auto;
+        }
+
+        .profile-header {
+    transform: translateY(5rem);
+}
+
+
+body {
+    background: black;
+    background: -webkit-linear-gradient(to right, rgba(0, 0, 0, 0.8), rgb(101, 96, 96));
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgb(101, 96, 96));
+    min-height: 100vh;
+}
+      </style>
+</head>
+<body>
+  <form action="/logout/doctor">
+    <input type="submit" value="LOGOUT">
+  </form>
+  <form action="/hospital">
+    <input type="submit" value="DASHBOARD">
+  </form>
+
+  <div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+  
+        <!-- Profile widget -->
+        <div class="bg-white shadow rounded overflow-hidden">
+            <div class="px-4 pt-0 pb-4 bg-dark">
+                <div class="media align-items-end profile-header">
+                    <div class="profile mr-3"><a href="<%= doctor.picture %>" target="_blank"><img src="<%= doctor.picture %>" alt="<%= doctor.firstname %> <%= doctor.lastname %>" width="130" class="rounded mb-2 img-thumbnail"></a><a href="#fullProfile" class="btn btn-dark btn-sm btn-block">View Full Profile</a></div>
+                    <div class="media-body mb-5 text-white">
+                        <h4 class="mt-0 mb-0">Dr. <%= doctor.name %></h4>
+                        <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i><a href="mailto: <%= doctor.email %>"><%= doctor.email %></a></p>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="bg-light p-4 d-flex justify-content-end text-center">
+
+            </div>
+  
+            <div class="py-4 px-4">
+
+  
+                
+            </div>
+        </div><!-- End profile widget -->
+        <!--  -->
+        <% const birth = doctor.dob %>
+        <% const yob = birth.slice(0, 4) %>
+        <% const yobN = parseInt(yob, 10) %>
+        <% const date = new Date() %>
+        <% const realDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() %>
+        <% const realYear = realDate.slice(0, 4) %>
+        <% const now = parseInt(realYear, 10) %>
+        <% const age = now - yobN %>
+        <center>
+            <div id="fullProfile" class="overlay">
+                <div class="popup">
+                  <h2>Dr. <%= doctor.name %></h2>
+                  <a class="close" href="">&times;</a>
+                  <div class="content">
+                    <a href="<%= doctor.picture %>" target="_blank"><img style="width: 200px; height: 200px; border-radius: 50%;" src="<%= doctor.picture %>" alt="<%= doctor.name %>"></a>
+                    <br>
+                    <p><b>Email:</b> <a href="mailto: <%= doctor.email %>" style="color: black;"><%= doctor.email %></a></p>
+                    <p><b>Phone Number:</b> <a href="mailto: <%= doctor.phone %>" style="color: black;"><%= doctor.phone %></a></p>
+                    <p><b>Age:</b> <%= age %></p>
+                    <p><b>Address:</b> <%= doctor.address %></p>
+                    <p><b>Password:</b> <%= doctor.password %></p>
+                  </div>
+                </div>
+              </div>
+        </center>
+        <!--  -->
+    </div>
+  </div>
+
+        <!-- jQuery library -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    
+        <!-- Popper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        
+        <!-- Latest compiled JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

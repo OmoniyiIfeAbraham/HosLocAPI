@@ -226,19 +226,25 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Doctors</h4>
+                                <p>
+                                    <%= msg %>
+                                </p>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
                                                 <th>FullName</th>
+                                                <th>Phone Number</th>
                                                 <th>Email</th>
                                                 <th>Age</th>
+                                                <th>View</th>
+                                                <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <% if (doctors.length> 0 ) { %>
-                                                <% doctors.forEach(patient=> { %>
-                                                    <% const birth=patient.dob %>
+                                                <% doctors.forEach(doctor=> { %>
+                                                    <% const birth=doctor.dob %>
                                                         <% const yob=birth.slice(0, 4) %>
                                                             <% const yobN=parseInt(yob, 10) %>
                                                                 <% const date=new Date() %>
@@ -249,18 +255,30 @@
                                                                                 <% const age=now - yobN %>
                                                                                     <tr>
                                                                                         <td>
-                                                                                            <%= patient.name %>
+                                                                                            <%= doctor.name %>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <%= patient.email %>
+                                                                                            <%= doctor.phone %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%= doctor.email %>
                                                                                         </td>
                                                                                         <td>
                                                                                             <%= age %>
                                                                                         </td>
+                                                                                        <td>
+                                                                                            <a href="/viewDoctors/view/<%= doctor._id %>">View</a>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a href="/viewDoctors/delete/<%= doctor._id %>">Delete</a>
+                                                                                        </td>                            
                                                                                     </tr>
                                                                                     <% }) %>
                                                                                         <% } else { %>
                                                                                             <tr>
+                                                                                                <td>-----</td>
+                                                                                                <td>-----</td>
+                                                                                                <td>-----</td>
                                                                                                 <td>-----</td>
                                                                                                 <td>-----</td>
                                                                                                 <td>-----</td>
@@ -270,8 +288,11 @@
                                         <tfoot>
                                             <tr>
                                                 <th>FullName</th>
+                                                <th>Phone Number</th>
                                                 <th>Email</th>
                                                 <th>Age</th>
+                                                <th>View</th>
+                                                <th>Delete</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -291,7 +312,8 @@
                     <h2>Create Doctor Profile</h2>
                     <a class="close" href="">&times;</a>
                     <div class="content">
-                        <form action="/viewDoctors/addDoctor" method="POST" enctype="multipart/form-data">
+                        <form action="/viewDoctors/addDoctor/<%= you._id %>" method="POST"
+                            enctype="multipart/form-data">
                             <label for="file">Picture: </label>
                             <input type="file" name="picture" id="picture" required>
                             <br>
