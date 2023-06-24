@@ -22,4 +22,13 @@ try {
 }
 })
 
+router.get('/all', async(req, res) => {
+    try {
+        const hospitals = await hospitalsMod.find()
+        res.status(200).json(hospitals)
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+    })
+
 module.exports = router;
