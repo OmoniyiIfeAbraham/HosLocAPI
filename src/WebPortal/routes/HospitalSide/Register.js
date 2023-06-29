@@ -26,11 +26,13 @@ const systemMail = mailer.createTransport({
 
 router.get("/", (req, res) => {
   const apiKey = process.env.apiKey;
-  res.render("HospitalSide/register", { msg: "", apiKey });
+  const scriptTag = `<script src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places"></script>`;
+  res.render("HospitalSide/register", { msg: "", scriptTag: scriptTag });
 });
 
 router.post("/", async (req, res) => {
   const apiKey = process.env.apiKey;
+  const scriptTag = `<script src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places"></script>`;
   const sess = req.session;
   // console.log(req.body)
   const address = req.body.address;
@@ -77,7 +79,7 @@ router.post("/", async (req, res) => {
             if (verifyMail) {
               res.render("HospitalSide/register", {
                 msg: "User with this Email already exists",
-                apiKey,
+                scriptTag: scriptTag,
               });
             } else {
               const profile = req.files.picture;
@@ -137,37 +139,37 @@ router.post("/", async (req, res) => {
               } else {
                 res.render("HospitalSide/register", {
                   msg: "Invalid Image File Type",
-                  apiKey,
+                  scriptTag: scriptTag,
                 });
               }
             }
           } else {
             res.render("HospitalSide/register", {
               msg: "Password and Confirm Password has to be the same",
-              apiKey,
+              scriptTag: scriptTag,
             });
           }
         } else {
           res.render("HospitalSide/register", {
             msg: "Please fIll all Fields Correctly",
-            apiKey,
+            scriptTag: scriptTag,
           });
         }
       } else {
         res.render("HospitalSide/register", {
           msg: "Selected location is not a hospital or healthcare center!!!",
-          apiKey,
+          scriptTag: scriptTag,
         });
       }
     } else {
       res.render("HospitalSide/register", {
         msg: "Please fill all the fields!",
-        apiKey,
+        scriptTag: scriptTag,
       });
     }
   } catch (err) {
     console.log(err);
-    res.render("HospitalSide/register", { msg: "An Error Occured!!!", apiKey });
+    res.render("HospitalSide/register", { msg: "An Error Occured!!!", scriptTag: scriptTag });
   }
 });
 
