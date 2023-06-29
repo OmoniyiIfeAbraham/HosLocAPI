@@ -298,15 +298,15 @@
             user-select: none;
         }
     </style>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDH4V2zCyC_R7C7jpxQ45i-2ufWV-0eoBY&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&libraries=places"></script>
 </head>
 
 <body id="particles-js"></body>
 <div class="animated bounceInDown">
     <div class="container">
         <span class="error animated tada" id="msg"></span>
-        <form name="form1" class="box" onsubmit="return checkStuff()" method="post" enctype="multipart/form-data" action="/hospitalRegister">
+        <form name="form1" class="box" onsubmit="return checkStuff()" method="post" enctype="multipart/form-data"
+            action="/hospitalRegister">
             <h4>Hospital<span>Register</span></h4>
             <h5>Create a new account.</h5>
             <p style="color: red;">

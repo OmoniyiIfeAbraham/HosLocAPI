@@ -25,10 +25,12 @@ const systemMail = mailer.createTransport({
 });
 
 router.get("/", (req, res) => {
-  res.render("HospitalSide/register", { msg: "" });
+  const apiKey = process.env.apiKey;
+  res.render("HospitalSide/register", { msg: "", apiKey });
 });
 
 router.post("/", async (req, res) => {
+  const apiKey = process.env.apiKey;
   const sess = req.session;
   // console.log(req.body)
   const address = req.body.address;
@@ -75,6 +77,7 @@ router.post("/", async (req, res) => {
             if (verifyMail) {
               res.render("HospitalSide/register", {
                 msg: "User with this Email already exists",
+                apiKey,
               });
             } else {
               const profile = req.files.picture;
@@ -134,32 +137,37 @@ router.post("/", async (req, res) => {
               } else {
                 res.render("HospitalSide/register", {
                   msg: "Invalid Image File Type",
+                  apiKey,
                 });
               }
             }
           } else {
             res.render("HospitalSide/register", {
               msg: "Password and Confirm Password has to be the same",
+              apiKey,
             });
           }
         } else {
           res.render("HospitalSide/register", {
             msg: "Please fIll all Fields Correctly",
+            apiKey,
           });
         }
       } else {
         res.render("HospitalSide/register", {
           msg: "Selected location is not a hospital or healthcare center!!!",
+          apiKey,
         });
       }
     } else {
       res.render("HospitalSide/register", {
         msg: "Please fill all the fields!",
+        apiKey,
       });
     }
   } catch (err) {
     console.log(err);
-    res.render("HospitalSide/register", { msg: "An Error Occured!!!" });
+    res.render("HospitalSide/register", { msg: "An Error Occured!!!", apiKey });
   }
 });
 
