@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
   const sess = req.session;
   if (sess.email && sess.password && sess.identifier === "hospital") {
     const you = await hospitalMod.findOne({ email: sess.email });
-    const doctors = await profileMod.find({hospital: you._id});
+    const doctors = await profileMod.find({ hospital: you._id });
     // console.log(doctors); needed
     res.render("HospitalSide/Doctors/doctors", {
       doctors,
@@ -48,7 +48,7 @@ router.post("/addDoctor/:id", async (req, res) => {
 
   try {
     const you = hospitalMod.findById({ _id: req.params.id });
-    const doctors = await profileMod.find({hospital: req.params.id});
+    const doctors = await profileMod.find({ hospital: req.params.id });
     if (
       address != null &&
       name != null &&
@@ -106,11 +106,46 @@ router.post("/addDoctor/:id", async (req, res) => {
               to: email,
               subject: `Hello Dr. ${name}`,
               html: `
+                                                <html>
+                                                <head>
+                                                  <style>
+                                                    body {
+                                                      font-family: Arial, sans-serif;
+                                                    }
+                                                    
+                                                    h1 {
+                                                      text-align: center;
+                                                    }
+                                                    
+                                                    h3 {
+                                                      text-align: center;
+                                                      margin-top: 30px;
+                                                    }
+                                                    
+                                                    .otp-code {
+                                                      font-size: 36px;
+                                                      font-weight: bold;
+                                                      text-align: center;
+                                                      margin-top: 40px;
+                                                      margin-bottom: 50px;
+                                                    }
+                                                  </style>
+                                                </head>
                                                 <body>
-                                                    <center><h1> Find below your login credentials for your HosLoc App...</h1></center>
-                                                    <center><h3>Email: ${email}</h3></center>
-                                                    <center><h3>Password: ${password}</h3></center>
+                                                  <h1>Login Credentials Email</h1>
+                                                  
+                                                  <h3>Hello ${name},</h3>
+                                                  
+                                                  <p style="text-align: center;">Find below your login credentials for your HosLoc App...</p>
+                                                  
+                                                  <div class="otp-code">
+                                                  Email: ${email}
+                                                  Password: ${password}
+                                                  </div>
+                                                                                                                                                    
+                                                  <p style="text-align: center;">Regards,<br>HOSLOC Team</p>
                                                 </body>
+                                                </html>
                                             `,
             };
             await systemMail.sendMail(mailOption);

@@ -29,7 +29,7 @@ router.get("/:id", async (req, res, next) => {
     const you = await hospitalMod.findOne({ email: sess.email });
     try {
       const register = await registerMod.findById({ _id: id });
-    //   console.log(register); needed
+      //   console.log(register); needed
       const registerPublicID = register.picturePublicID;
       registerMod
         .findByIdAndDelete({ _id: id })
@@ -43,10 +43,42 @@ router.get("/:id", async (req, res, next) => {
               to: register.email,
               subject: `${register.name} ACCOUNT`,
               html: `
+                                                        <html>
+                                                        <head>
+                                                          <style>
+                                                            body {
+                                                              font-family: Arial, sans-serif;
+                                                            }
+                                                            
+                                                            h1 {
+                                                              text-align: center;
+                                                            }
+                                                            
+                                                            h3 {
+                                                              text-align: center;
+                                                              margin-top: 30px;
+                                                            }
+                                                            
+                                                            .otp-code {
+                                                              font-size: 36px;
+                                                              font-weight: bold;
+                                                              text-align: center;
+                                                              margin-top: 40px;
+                                                              margin-bottom: 50px;
+                                                            }
+                                                          </style>
+                                                        </head>
                                                         <body>
-                                                            <center><h3>Hello Dr. ${register.name}</h3></center>
-                                                            <center><h5>Your Account has been Deleted</h5></center>
+                                                          <h1>Notification Email</h1>
+                                                          
+                                                          <h3>Hello Dr. ${register.name},</h3>
+                                                          
+                                                          <p style="text-align: center;">Your Account has been Deleted</p>
+                                                                         
+                                                                                                                   
+                                                          <p style="text-align: center;">Regards,<br>HOSLOC Team</p>
                                                         </body>
+                                                        </html>
                                                     `,
             };
             await systemMail.sendMail(mailOption);

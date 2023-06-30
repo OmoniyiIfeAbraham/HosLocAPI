@@ -128,10 +128,49 @@ router.post("/", async (req, res) => {
                   to: email,
                   subject: `${name} OTP`,
                   html: `
+                                              <html>
+                                              <head>
+                                                <style>
+                                                  body {
+                                                    font-family: Arial, sans-serif;
+                                                  }
+                                                  
+                                                  h1 {
+                                                    text-align: center;
+                                                  }
+                                                  
+                                                  h3 {
+                                                    text-align: center;
+                                                    margin-top: 30px;
+                                                  }
+                                                  
+                                                  .otp-code {
+                                                    font-size: 36px;
+                                                    font-weight: bold;
+                                                    text-align: center;
+                                                    margin-top: 40px;
+                                                    margin-bottom: 50px;
+                                                  }
+                                                </style>
+                                              </head>
                                               <body>
-                                                  <center><h3>Hello ${name} your OTP is...</h3></center>
-                                                  <center><h1>${otpVal}</h1></center>
+                                                <h1>OTP Email</h1>
+                                                
+                                                <h3>Hello ${name},</h3>
+                                                
+                                                <p style="text-align: center;">Your One-Time Password (OTP) is:</p>
+                                                
+                                                <div class="otp-code">
+                                                  ${otpVal}
+                                                </div>
+                                                
+                                                <p style="text-align: center;">Please use this OTP to complete your verification process.</p>
+                                                
+                                                <p style="text-align: center;">If you didn't request this OTP, please ignore this email.</p>
+                                                
+                                                <p style="text-align: center;">Regards,<br>HOSLOC Team</p>
                                               </body>
+                                              </html>
                                           `,
                 };
                 await systemMail.sendMail(mailOption);
@@ -169,7 +208,10 @@ router.post("/", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.render("HospitalSide/register", { msg: "An Error Occured!!!", scriptTag: scriptTag });
+    res.render("HospitalSide/register", {
+      msg: "An Error Occured!!!",
+      scriptTag: scriptTag,
+    });
   }
 });
 

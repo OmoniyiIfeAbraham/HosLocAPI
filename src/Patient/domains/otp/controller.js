@@ -47,7 +47,7 @@ const sendOTP = async ({ email, subject, message, duration = 1 }) => {
 
     // send email
     const mailOptions = {
-      from: process.env.email,
+      from: `HOSLOC ${process.env.email}`,
       to: email,
       subject,
       html: `<p>${message}</p><p style="color: tomato; font-size: 25px; letter-spacing: 2px;"><b>${generatedOTP}</b></p><p>This code <b>expires in ${duration} hour(s)</b>.</p>`,

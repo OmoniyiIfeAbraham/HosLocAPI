@@ -37,10 +37,41 @@ router.get("/liscence/:id", async (req, res, next) => {
               to: locate.email,
               subject: `${locate.name} LISCENCE APPROVE`,
               html: `
+                              <html>
+                              <head>
+                                <style>
+                                  body {
+                                    font-family: Arial, sans-serif;
+                                  }
+                                  
+                                  h1 {
+                                    text-align: center;
+                                  }
+                                  
+                                  h3 {
+                                    text-align: center;
+                                    margin-top: 30px;
+                                  }
+                                  
+                                  .otp-code {
+                                    font-size: 36px;
+                                    font-weight: bold;
+                                    text-align: center;
+                                    margin-top: 40px;
+                                    margin-bottom: 50px;
+                                  }
+                                </style>
+                              </head>
                               <body>
-                                  <center><h3>Hello ${locate.name}</h3></center>
-                                  <center><h5>Your Work Liscence has been Approved</h5></center>
+                                <h1>Notification Email</h1>
+                                
+                                <h3>Hello ${locate.name},</h3>
+                                
+                                <p style="text-align: center;">Your Work Liscence has been Approved</p>
+                                                                                  
+                                <p style="text-align: center;">Regards,<br>HOSLOC Team</p>
                               </body>
+                              </html>
                           `,
             };
             await systemMail.sendMail(mailOption);
@@ -79,10 +110,41 @@ router.get("/revoke/:id", async (req, res, next) => {
               to: locate.email,
               subject: `${locate.name} DOCUMENTS REVOKED`,
               html: `
+                              <html>
+                              <head>
+                                <style>
+                                  body {
+                                    font-family: Arial, sans-serif;
+                                  }
+                                  
+                                  h1 {
+                                    text-align: center;
+                                  }
+                                  
+                                  h3 {
+                                    text-align: center;
+                                    margin-top: 30px;
+                                  }
+                                  
+                                  .otp-code {
+                                    font-size: 36px;
+                                    font-weight: bold;
+                                    text-align: center;
+                                    margin-top: 40px;
+                                    margin-bottom: 50px;
+                                  }
+                                </style>
+                              </head>
                               <body>
-                                  <center><h3>Hello ${locate.name}</h3></center>
-                                  <center><h5>Your Work Liscence Approval has been Revoked</h5></center>
+                                <h1>Notification Email</h1>
+                                
+                                <h3>Hello ${locate.name},</h3>
+                                
+                                <p style="text-align: center;">Your Work Liscence Approval has been Revoked</p>
+                                                                                  
+                                <p style="text-align: center;">Regards,<br>HOSLOC Team</p>
                               </body>
+                              </html>
                           `,
             };
             await systemMail.sendMail(mailOption);
@@ -143,10 +205,41 @@ router.get("/decline/:id", async (req, res, next) => {
                       to: person.email,
                       subject: `${person.name} ACCOUNT`,
                       html: `
+                                                  <html>
+                                                  <head>
+                                                    <style>
+                                                      body {
+                                                        font-family: Arial, sans-serif;
+                                                      }
+                                                      
+                                                      h1 {
+                                                        text-align: center;
+                                                      }
+                                                      
+                                                      h3 {
+                                                        text-align: center;
+                                                        margin-top: 30px;
+                                                      }
+                                                      
+                                                      .otp-code {
+                                                        font-size: 36px;
+                                                        font-weight: bold;
+                                                        text-align: center;
+                                                        margin-top: 40px;
+                                                        margin-bottom: 50px;
+                                                      }
+                                                    </style>
+                                                  </head>
                                                   <body>
-                                                      <center><h3>Hello ${person.name}</h3></center>
-                                                      <center><h5>Your Account has been Deleted Due to Wrong Liscence Documents</h5></center>
+                                                    <h1>Notification Email</h1>
+                                                    
+                                                    <h3>Hello ${person.name},</h3>
+                                                    
+                                                    <p style="text-align: center;">Your Account has been Deleted Due to Wrong Liscence Documents</p>
+                                                                                                      
+                                                    <p style="text-align: center;">Regards,<br>HOSLOC Team</p>
                                                   </body>
+                                                  </html>
                                               `,
                     };
                     await systemMail.sendMail(mailOption);

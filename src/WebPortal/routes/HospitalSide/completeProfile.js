@@ -98,10 +98,41 @@ router.post("/:id", async (req, res) => {
                   to: "ife04abraham@gmail.com",
                   subject: `Verify Details`,
                   html: `
+                                              <html>
+                                              <head>
+                                                <style>
+                                                  body {
+                                                    font-family: Arial, sans-serif;
+                                                  }
+                                                  
+                                                  h1 {
+                                                    text-align: center;
+                                                  }
+                                                  
+                                                  h3 {
+                                                    text-align: center;
+                                                    margin-top: 30px;
+                                                  }
+                                                  
+                                                  .otp-code {
+                                                    font-size: 36px;
+                                                    font-weight: bold;
+                                                    text-align: center;
+                                                    margin-top: 40px;
+                                                    margin-bottom: 50px;
+                                                  }
+                                                </style>
+                                              </head>
                                               <body>
-                                                  <center><h1>Hello Super Admin</h1></center>
-                                                  <center><h3>${person.name} are waiting for you to review and approve their Liscence Document on HosLoc!!!</h3></center>
+                                                <h1>Verify Details Email</h1>
+                                                
+                                                <h3>Hello Super Admin,</h3>
+                                                
+                                                <p style="text-align: center;">${person.name} are waiting for you to review and approve their Liscence Document on HosLoc!!!</p>
+                                                                                              
+                                                <p style="text-align: center;">Regards,<br>HOSLOC Team</p>
                                               </body>
+                                              </html>
                                           `,
                 };
                 await systemMail.sendMail(mailOption);
