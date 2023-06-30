@@ -245,7 +245,6 @@ router.get("/decline/:id", async (req, res, next) => {
                     await systemMail.sendMail(mailOption);
                   }
                   mail();
-                  sess.destroy();
                   res.redirect("/super-admin");
                 })
                 .catch((error) => {
