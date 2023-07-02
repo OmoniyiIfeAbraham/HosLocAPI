@@ -42,61 +42,61 @@ app.use(
 app.use("/api/v1", routes);
 
 // general routes
-app.use("/", require("./WebPortal/routes/index"));
+// app.use("/", require("./WebPortal/routes/index"));
 
 //  super admin routes
-app.use("/super-admin", require("./WebPortal/routes/SuperAdminSide/index"));
-app.use(
-  "/super-adminLogin",
-  require("./WebPortal/routes/SuperAdminSide/login")
-);
-app.use(
-  "/adminHospitals",
-  require("./WebPortal/routes/SuperAdminSide/Hospitals/hospitals")
-);
-app.use(
-  "/adminPatients",
-  require("./WebPortal/routes/SuperAdminSide/Patients/Patients")
-);
-app.use(
-  "/adminDoctors",
-  require("./WebPortal/routes/SuperAdminSide/Doctors/Patients")
-);
-app.use(
-  "/viewHospital",
-  require("./WebPortal/routes/SuperAdminSide/Hospitals/viewHospital")
-);
-app.use(
-  "/approve",
-  require("./WebPortal/routes/SuperAdminSide/Hospitals/approve")
-);
+// app.use("/super-admin", require("./WebPortal/routes/SuperAdminSide/index"));
+// app.use(
+//   "/super-adminLogin",
+//   require("./WebPortal/routes/SuperAdminSide/login")
+// );
+// app.use(
+//   "/adminHospitals",
+//   require("./WebPortal/routes/SuperAdminSide/Hospitals/hospitals")
+// );
+// app.use(
+//   "/adminPatients",
+//   require("./WebPortal/routes/SuperAdminSide/Patients/Patients")
+// );
+// app.use(
+//   "/adminDoctors",
+//   require("./WebPortal/routes/SuperAdminSide/Doctors/Patients")
+// );
+// app.use(
+//   "/viewHospital",
+//   require("./WebPortal/routes/SuperAdminSide/Hospitals/viewHospital")
+// );
+// app.use(
+//   "/approve",
+//   require("./WebPortal/routes/SuperAdminSide/Hospitals/approve")
+// );
 
 // hospital routes
-app.use("/hospital", require("./WebPortal/routes/HospitalSide/profile"));
-app.use(
-  "/hospitalRegister",
-  require("./WebPortal/routes/HospitalSide/Register")
-);
-app.use("/hospitalLogin", require("./WebPortal/routes/HospitalSide/login"));
-app.use(
-  "/completeProfile",
-  require("./WebPortal/routes/HospitalSide/completeProfile")
-);
-app.use(
-  "/viewPatients",
-  require("./WebPortal/routes/HospitalSide/Patients/patients")
-);
-app.use(
-  "/viewDoctors",
-  require("./WebPortal/routes/HospitalSide/Doctors/doctors")
-);
-app.use(
-  "/deleteDoctor",
-  require("./WebPortal/routes/HospitalSide/Doctors/delete")
-);
+// app.use("/hospital", require("./WebPortal/routes/HospitalSide/profile"));
+// app.use(
+//   "/hospitalRegister",
+//   require("./WebPortal/routes/HospitalSide/Register")
+// );
+// app.use("/hospitalLogin", require("./WebPortal/routes/HospitalSide/login"));
+// app.use(
+//   "/completeProfile",
+//   require("./WebPortal/routes/HospitalSide/completeProfile")
+// );
+// app.use(
+//   "/viewPatients",
+//   require("./WebPortal/routes/HospitalSide/Patients/patients")
+// );
+// app.use(
+//   "/viewDoctors",
+//   require("./WebPortal/routes/HospitalSide/Doctors/doctors")
+// );
+// app.use(
+//   "/deleteDoctor",
+//   require("./WebPortal/routes/HospitalSide/Doctors/delete")
+// );
 
 // logout routes
-app.use("/logout", require("./WebPortal/routes/logout"));
+// app.use("/logout", require("./WebPortal/routes/logout"));
 
 // 404 page
 app.use(function(req, res, next) {
