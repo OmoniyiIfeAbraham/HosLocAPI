@@ -45,6 +45,8 @@ router.post("/addDoctor/:id", async (req, res) => {
   const dob = req.body.dob;
   const password = req.body.password;
   const email = req.body.email;
+  const gender = req.body.gender;
+  const specialization = req.body.specialization;
 
   try {
     const you = hospitalMod.findById({ _id: req.params.id });
@@ -56,6 +58,8 @@ router.post("/addDoctor/:id", async (req, res) => {
       dob != null &&
       phone != null &&
       email != null &&
+      gender != null &&
+      specialization != null &&
       req.files != null
     ) {
       if (address.length >= 3 && name.length >= 3 && password.length >= 6) {
@@ -94,6 +98,8 @@ router.post("/addDoctor/:id", async (req, res) => {
               name: name,
               address: address,
               phone: phone,
+              gender: gender,
+              specialization: specialization,
               dob: dob,
               password: password,
               email: email,

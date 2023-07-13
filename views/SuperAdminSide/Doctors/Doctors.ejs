@@ -140,6 +140,12 @@
                                             <th>
                                                 Email
                                             </th>
+                                            <th>
+                                                Gender
+                                            </th>
+                                            <th>
+                                                Specialization
+                                            </th>
                                             <th class="text-right">
                                                 Phone
                                             </th>
@@ -170,6 +176,12 @@
                                                                                                 href="mailto:<%= doctor.email %>">
                                                                                                 <%= doctor.email %>
                                                                                             </a></td>
+                                                                                        <td>
+                                                                                            <%= doctor.gender %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%= doctor.specialization %>
+                                                                                        </td>
                                                                                         <td class="text-right"><a
                                                                                                 href="tel:<%= doctor.phone %>">
                                                                                                 <%= doctor.phone %>
@@ -178,6 +190,8 @@
                                                                                     <% }) %>
                                                                                         <% } else { %>
                                                                                             <tr>
+                                                                                                <td>-----</td>
+                                                                                                <td>-----</td>
                                                                                                 <td>-----</td>
                                                                                                 <td>-----</td>
                                                                                                 <td>-----</td>

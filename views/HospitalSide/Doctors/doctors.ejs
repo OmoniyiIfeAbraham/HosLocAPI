@@ -65,6 +65,8 @@
         .popup .content {
             max-height: 30%;
             overflow: auto;
+            display: flex;
+            width: 100%;
         }
     </style>
 
@@ -237,6 +239,8 @@
                                                 <th>Phone Number</th>
                                                 <th>Email</th>
                                                 <th>Age</th>
+                                                <th>Gender</th>
+                                                <th>Specialization</th>
                                                 <th>View</th>
                                                 <th>Delete</th>
                                             </tr>
@@ -267,15 +271,25 @@
                                                                                             <%= age %>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <a href="/viewDoctors/view/<%= doctor._id %>">View</a>
+                                                                                            <%= doctor.gender %>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <a href="/deleteDoctor/<%= doctor._id %>">Delete</a>
-                                                                                        </td>                            
+                                                                                            <%= doctor.specialization %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a
+                                                                                                href="/viewDoctors/view/<%= doctor._id %>">View</a>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a
+                                                                                                href="/deleteDoctor/<%= doctor._id %>">Delete</a>
+                                                                                        </td>
                                                                                     </tr>
                                                                                     <% }) %>
                                                                                         <% } else { %>
                                                                                             <tr>
+                                                                                                <td>-----</td>
+                                                                                                <td>-----</td>
                                                                                                 <td>-----</td>
                                                                                                 <td>-----</td>
                                                                                                 <td>-----</td>
@@ -291,6 +305,8 @@
                                                 <th>Phone Number</th>
                                                 <th>Email</th>
                                                 <th>Age</th>
+                                                <th>Gender</th>
+                                                <th>Specialization</th>
                                                 <th>View</th>
                                                 <th>Delete</th>
                                             </tr>
@@ -317,25 +333,69 @@
                             <label for="file">Picture: </label>
                             <input type="file" name="picture" id="picture" required>
                             <br>
-                            <label for="name">FullName: </label>
-                            <input type="text" name="name" id="name" required>
+                            <!-- <label for="name">FullName </label>
+                            <br> -->
+                            <input type="text" name="name" id="name" placeholder="FullName" required style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
                             <br>
-                            <label for="address">Address: </label>
-                            <input type="text" name="address" id="address" required>
+                            <!-- <label for="address">Address </label>
+                            <br> -->
+                            <input type="text" name="address" id="address" placeholder="Address" required style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
                             <br>
-                            <label for="phone">Phone Number: </label>
-                            <input type="tel" name="phone" id="phone" required>
+                            <!-- <label for="phone">Phone Number </label>
+                            <br> -->
+                            <input type="tel" name="phone" id="phone" placeholder="Phone" required style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
+                            <br>
+                            <label for="gender">
+                                <select id="gender" required="required" name="gender" style="width: 455%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
+                                    <option value="" disabled="disabled" selected="selected">Gender</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </label>
+                            <br>
+                            <label for="specialization">
+                                <select id="specialization" required="required" name="specialization" style="width: 163%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
+                                    <option value="" disabled="disabled" selected="selected">Specialization</option>
+                                    <option value="Internal medicine">Internal medicine</option>
+                                    <option value="Orthopedics">Orthopedics</option>
+                                    <option value="Urology">Urology</option>
+                                    <option value="Family medicine">Family medicine</option>
+                                    <option value="Pediatrics">Pediatrics</option>
+                                    <option value="Obstetrics and gynaecology">Obstetrics and gynaecology</option>
+                                    <option value="Neurology">Neurology</option>
+                                    <option value="Pathology">Pathology</option>
+                                    <option value="General practitioner">General practitioner</option>
+                                    <option value="Dermatology">Dermatology</option>
+                                    <option value="Gastroenterology">Gastroenterology</option>
+                                    <option value="Ophthalmology">Ophthalmology</option>
+                                    <option value="Psychiatry">Psychiatry</option>
+                                    <option value="General surgery">General surgery</option>
+                                    <option value="Emergency medicine">Emergency medicine</option>
+                                    <option value="Anesthesiology">Anesthesiology</option>
+                                    <option value="Neurosurgery">Neurosurgery</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Radiology">Radiology</option>
+                                    <option value="Otorhinolaryngology">Otorhinolaryngology</option>
+                                    <option value="Geriatrics">Geriatrics</option>
+                                    <option value="Oncology">Oncology</option>
+                                    <option value="Rheumatology">Rheumatology</option>
+                                    <option value="Urologist">Urologist</option>
+                                </select>
+                            </label>
                             <br>
                             <label for="dob">Date of Birth: </label>
-                            <input type="date" name="dob" id="dob" required>
+                            <input type="date" name="dob" id="dob" required style="width: 73%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
                             <br>
-                            <label for="email">Email: </label>
-                            <input type="email" name="email" id="email" required>
+                            <!-- <label for="email">Email </label>
+                            <br> -->
+                            <input type="email" name="email" id="email" placeholder="Email" required style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
                             <br>
-                            <label for="password">Password: </label>
-                            <input type="password" name="password" id="password" required>
+                            <!-- <label for="password">Password </label>
+                            <br> -->
+                            <input type="password" name="password" id="password" placeholder="Password" required style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
                             <br>
-                            <input type="submit" value="Create">
+                            <input type="submit" value="Create" style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px; color: white; background-color: rgba(0, 0, 255, 0.700)">
                         </form>
                     </div>
                 </div>

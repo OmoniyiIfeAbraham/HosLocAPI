@@ -7,6 +7,7 @@ const cloudinary = require("cloudinary");
 const profileMod = require("./../../../models/HospitalSide/Profile/profile");
 const authMod = require("./../../../models/HospitalSide/auth");
 const registerMod = require("./../../../models/HospitalSide/Register");
+const doctorMod = require("./../../../models/HospitalSide/Doctor/doctor");
 
 const systemMail = mailer.createTransport({
   service: process.env.service,
@@ -199,6 +200,9 @@ router.get("/decline/:id", async (req, res, next) => {
                     .then((result) => {
                       console.log(result);
                     });
+                  doctorMod.deleteMany({ hospital: id }).then((result) => {
+                    console.log('Doctors Deleted Succesfully')
+                  });
                   async function mail() {
                     const mailOption = {
                       from: `${process.env.adminName} ${process.env.email}`,

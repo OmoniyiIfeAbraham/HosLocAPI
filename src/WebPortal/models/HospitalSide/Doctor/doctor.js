@@ -14,6 +14,14 @@ const doctorRegister = new Schema({
     phone: {
         type: String,
     },
+    gender: {
+        type: String,
+        required: true
+    },
+    specialization: {
+        type: String,
+        required: true
+    },
     dob: {
         type: String,
         required: true
