@@ -15,4 +15,10 @@ router.use("/forgot_password", ForgotPasswordRoutes);
 router.use('/hospitals', hospitalsRoutes)
 router.use('/doctor', doctorRoutes)
 
+
+router.get('/none', (req, res) => {
+    const val = { message: "HosLoc is Undergoing Update. Please check back in a few days.", status: "FAILED" };
+    return val;
+})
+
 module.exports = router;
