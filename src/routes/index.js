@@ -18,14 +18,15 @@ router.use("/doctor", doctorRoutes);
 router.get("/none", (req, res) => {
   const dos = false;
   if (dos == true) {
-    const val = {
+    res.status(400).send({
       message: "HosLoc is Undergoing Update. Please check back in a few days.",
       status: "FAILED",
-    };
-    return val;
+    });
   } else {
-    const val = { message: "", status: "FAILED" };
-    return val;
+    res.status(400).send({
+      message: "go",
+      status: "FAILED",
+    });
   }
 });
 
