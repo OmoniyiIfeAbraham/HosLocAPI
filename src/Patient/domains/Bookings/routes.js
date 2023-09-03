@@ -31,7 +31,7 @@ router.get("/getPatientID/:email", async (req, res) => {
     const Patient = await User.findOne({ email: email });
 
     if (Patient) {
-      res.status(200).json(Patient._id);
+      res.status(200).json({ id: Patient._id });
     } else {
       res.status(400).json({ message: "No User Found" });
     }
