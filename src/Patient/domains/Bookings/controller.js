@@ -3,15 +3,12 @@ const User = require("./../user/model");
 
 const createBookingRequest = async (data) => {
   try {
-    const { patientID, patientName, hospitalID, specialization, message } =
-      data;
+    const { patientID, hospitalID, specialization, message } = data;
 
     // checking if user already exists
     const existinguser = await User.findById(patientID);
 
-    if (
-      !(patientID && patientName && hospitalID && specialization && message)
-    ) {
+    if (!(patientID && hospitalID && specialization && message)) {
       const val = {
         message: "Empty Request Cannot Be sent!",
         status: "FAILED",
@@ -27,7 +24,6 @@ const createBookingRequest = async (data) => {
     } else {
       const newBooking = new Booking({
         patientID,
-        patientName,
         hospitalID,
         specialization,
         message,

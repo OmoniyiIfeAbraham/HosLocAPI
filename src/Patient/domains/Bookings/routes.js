@@ -1,26 +1,40 @@
 const express = require("express");
 const router = express.Router();
 const { createBookingRequest } = require("./controller");
+const User = require("./../user/model");
 
 // send request
 router.post("/request", async (req, res) => {
   try {
-    let { patientID, patientName, hospitalID, specialization, message } =
-      req.body;
+    let { patientID, hospitalID, specialization, message } = req.body;
     patientID = patientID;
-    patientName = patientName;
     hospitalID = hospitalID;
     specialization = specialization;
     message = message;
 
     const newBooking = await createBookingRequest({
       patientID,
-      patientName,
       hospitalID,
       specialization,
       message,
     });
     res.status(200).json(newBooking);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+router.get("/getPatientID", async (req, res) => {
+  try {
+    let { email } = req.body;
+
+    const Patient = await User.findOne({ email: email });
+
+    if (Patient) {
+      res.status(200).json(Patient._id);
+    } else {
+      res.status(400).json({ message: "No User Found" });
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }
