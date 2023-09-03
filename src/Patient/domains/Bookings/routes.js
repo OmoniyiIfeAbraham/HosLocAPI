@@ -24,9 +24,9 @@ router.post("/request", async (req, res) => {
   }
 });
 
-router.get("/getPatientID", async (req, res) => {
+router.get("/getPatientID/:email", async (req, res) => {
   try {
-    let { email } = req.body;
+    let email = req.params.email;
 
     const Patient = await User.findOne({ email: email });
 
