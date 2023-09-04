@@ -27,7 +27,7 @@ router.get("/:id", async (req, res, next) => {
   if (sess.email && sess.password && sess.identifier === "hospital") {
     const doctors = await registerMod.find();
     const you = await hospitalMod.findOne({ email: sess.email });
-    try {
+    try { 
       const register = await registerMod.findById({ _id: id });
       //   console.log(register); needed
       const registerPublicID = register.picturePublicID;

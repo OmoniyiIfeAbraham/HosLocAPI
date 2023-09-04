@@ -94,4 +94,35 @@ router.post("/setAppointment/:id/:user", async (req, res) => {
   }
 });
 
+router.get("/deleteBooking/:id", async (req, res, next) => {
+  const id = req.params.id;
+  const sess = req.session;
+  if (sess.email && sess.password && sess.identifier === "hospital") {
+    const you = await hospitalMod.findOne({ email: sess.email });
+    const doctors = await profileMod.find({ hospital: you._id });
+    try {
+      requestMod
+        .findByIdAndDelete({ _id: id })
+        .then((result) => {
+          console.log(result);
+          res.redirect("/viewBookings");
+        })
+        .catch((error) => {
+          console.log(error);
+          next(error);
+        });
+    } catch (err) {
+      console.log(err);
+      res.render("HospitalSide/Doctors/doctors", {
+        doctors,
+        you,
+        unique: you.uniqueID,
+        msg: "An Error Occured!!!",
+      });
+    }
+  } else {
+    res.redirect("/hospitalLogin");
+  }
+});
+
 module.exports = router;

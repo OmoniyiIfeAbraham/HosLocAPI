@@ -272,8 +272,7 @@
                                                                             method="POST" enctype="multipart/form-data">
                                                                             <label for="specialization">
                                                                                 <select id="specialization"
-                                                                                    required="required"
-                                                                                    name="doctor"
+                                                                                    required="required" name="doctor"
                                                                                     style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
                                                                                     <option value="" disabled="disabled"
                                                                                         selected="selected">
@@ -339,12 +338,10 @@
                                                                                                 <td>
                                                                                                     <a
                                                                                                         href="#addDoctor">Set</a>
-                                                                                                    <!-- <a
-                                                                                                        href="/viewDoctors/view/<%= request._id %>">Set</a> -->
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     <a
-                                                                                                        href="/deleteDoctor/<%= request._id %>">Delete</a>
+                                                                                                        href="/viewBookings/deleteBooking/<%= request._id %>">Delete</a>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <% } %>
