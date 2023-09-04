@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hospital: Booking Requests</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="quick/images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="./quick/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="quick/css/style.css" rel="stylesheet">
+
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 500ms;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 10;
+        }
+
+        .overlay:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup {
+            margin: 70px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            width: 30%;
+            position: relative;
+            transition: all 5s ease-in-out;
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #333;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .popup .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .popup .close:hover {
+            color: #06d85f;
+        }
+
+        .popup .content {
+            max-height: 30%;
+            overflow: auto;
+            display: flex;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="/hospital" style="color: white;">
+                    <b class="logo-abbr"><img src="quick/images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./quick/images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <p>
+                            <%= you.name %>
+                        </p>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                <div class="header-left">
+                    <div class="input-group icons">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i
+                                    class="mdi mdi-magnify"></i></span>
+                        </div>
+                        <input type="search" class="form-control" placeholder="Search Dashboard"
+                            aria-label="Search Dashboard">
+                        <div class="drop-down   d-md-none">
+                            <form action="#">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <ul class="clearfix">
+                        <li class="icons dropdown d-none d-md-flex">
+                            <a href="javascript:void(0)" class="log-user" data-toggle="dropdown">
+                                <span>English</span> <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative" data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="<%= you.picture %>" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile   dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="/view/<%= unique %>"><i class="icon-user"></i>
+                                                <span>Profile</span></a>
+                                        </li>
+
+                                        <hr class="my-2">
+                                        <li><a href="/logout/hospital"><i class="icon-key"></i> <span>Logout</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="/hospital" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/viewPatients" aria-expanded="false">
+                            <i class="fa fa-users"></i><span class="nav-text">Patients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/viewDoctors" aria-expanded="false">
+                            <i class="fa fa-book"></i><span class="nav-text">Doctors</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/viewBookings" aria-expanded="false">
+                            <i class="fa fa-book"></i><span class="nav-text">Booking Requests</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/viewAppointments" aria-expanded="false">
+                            <i class="fa fa-book"></i><span class="nav-text">Appointments</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="row page-titles mx-0">
+                <div class="col p-md-0">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/hospital">Dashboard</a></li>
+                        <li class="breadcrumb-item active"><a href="/hospital">Home</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- row -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Booking Requests</h4>
+                                <p>
+                                    <%= msg %>
+                                </p>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered zero-configuration">
+                                        <thead>
+                                            <tr>
+                                                <th>FullName</th>
+                                                <th>Email</th>
+                                                <th>Age</th>
+                                                <th>Requested Doctor Speciality</th>
+                                                <th>Message</th>
+                                                <th>Appointment</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (requests.length> 0 ) { %>
+                                                <% requests.forEach(request=> { %>
+                                                    <%users.forEach(user=> { %>
+                                                        <% if(request.patientID==user._id) { %>
+
+                                                            <!-- Modal -->
+                                                            <div id="addDoctor" class="overlay">
+                                                                <p>
+                                                                    <%= msg %>
+                                                                </p>
+                                                                <div class="popup">
+                                                                    <h2>Set Appointment</h2>
+                                                                    <a class="close" href="">&times;</a>
+                                                                    <div class="content"
+                                                                        style="height: auto; display: flex; flex-direction: column;">
+                                                                        <form
+                                                                            action="/viewBookings/setAppointment/<%= request._id %>/<%= user._id %>"
+                                                                            method="POST" enctype="multipart/form-data">
+                                                                            <label for="specialization">
+                                                                                <select id="specialization"
+                                                                                    required="required"
+                                                                                    name="doctor"
+                                                                                    style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
+                                                                                    <option value="" disabled="disabled"
+                                                                                        selected="selected">
+                                                                                        Choose
+                                                                                        Doctor
+                                                                                    </option>
+                                                                                    <% doctors.forEach(doctor=>
+                                                                                        { %>
+                                                                                        <option
+                                                                                            value="<%= doctor._id %>">
+                                                                                            <%= doctor.name %>
+                                                                                                ||
+                                                                                                <%= doctor.specialization
+                                                                                                    %>
+                                                                                        </option>
+                                                                                        <% }) %>
+                                                                                </select>
+                                                                            </label>
+                                                                            <br>
+                                                                            <label for="dob">Date/Time:
+                                                                            </label>
+                                                                            <input type="datetime-local" name="time"
+                                                                                id="dob" required
+                                                                                style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px">
+                                                                            <br>
+                                                                            <input type="submit" value="SET"
+                                                                                style="width: 100%; height: 25px; border-radius: 5px; margin-top: 5px; margin-bottom: 5px; color: white; background-color: rgba(0, 0, 255, 0.700)">
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <% const birth=user.dob %>
+                                                                <% const yob=birth.slice(0, 4) %>
+                                                                    <% const yobN=parseInt(yob, 10) %>
+                                                                        <% const date=new Date() %>
+                                                                            <% const realDate=date.getFullYear() + '-' +
+                                                                                (date.getMonth() + 1) + '-' +
+                                                                                date.getDay() %>
+                                                                                <% const realYear=realDate.slice(0, 4)
+                                                                                    %>
+                                                                                    <% const now=parseInt(realYear, 10)
+                                                                                        %>
+                                                                                        <% const age=now - yobN %>
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    <%= user.name %>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <%= user.email %>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <%= age %>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <%= request.specialization
+                                                                                                        %>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <%= request.message
+                                                                                                        %>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <a
+                                                                                                        href="#addDoctor">Set</a>
+                                                                                                    <!-- <a
+                                                                                                        href="/viewDoctors/view/<%= request._id %>">Set</a> -->
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <a
+                                                                                                        href="/deleteDoctor/<%= request._id %>">Delete</a>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <% } %>
+                                                                                                <% }) %>
+                                                                                                    <% }) %>
+                                                                                                        <% } else { %>
+                                                                                                            <tr>
+                                                                                                                <td>-----
+                                                                                                                </td>
+                                                                                                                <td>-----
+                                                                                                                </td>
+                                                                                                                <td>-----
+                                                                                                                </td>
+                                                                                                                <td>-----
+                                                                                                                </td>
+                                                                                                                <td>-----
+                                                                                                                </td>
+                                                                                                                <td>-----
+                                                                                                                </td>
+                                                                                                                <td>-----
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <% } %>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>FullName</th>
+                                                <th>Email</th>
+                                                <th>Age</th>
+                                                <th>Requested Doctor Speciality</th>
+                                                <th>Message</th>
+                                                <th>Appointment</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://ife-portfolio.up.railway.app">Ife Abraham
+                        Omoniyi</a>
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                </p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="quick/plugins/common/common.min.js"></script>
+    <script src="quick/js/custom.min.js"></script>
+    <script src="quick/js/settings.js"></script>
+    <script src="quick/js/gleek.js"></script>
+    <script src="quick/js/styleSwitcher.js"></script>
+
+    <script src="./quick/plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="./quick/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="./quick/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
+</body>
+
+</html>

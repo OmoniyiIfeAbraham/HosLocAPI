@@ -5,6 +5,7 @@ const registerMod = require("./../../models/HospitalSide/Register");
 const profileMod = require("./../../models/HospitalSide/Profile/profile");
 const patientMod = require("./../../../Patient/domains/user/model");
 const doctorMod = require("./../../models/HospitalSide/Doctor/doctor");
+const requestMod = require("./../../../Patient/domains/Bookings/model");
 
 router.get("/", async (req, res) => {
   const sess = req.session;
@@ -25,6 +26,10 @@ router.get("/", async (req, res) => {
       } else if (you.liscenceApprove == true) {
         const patients = await patientMod.find();
         const doctors = await doctorMod.find({ hospital: you._id });
+        const requests = await requestMod.find({
+          hospitalID: you._id,
+          accepted: false,
+        });
         // console.log(schedules);
         res.render("HospitalSide/Profile/profile", {
           id: person._id,
@@ -32,6 +37,7 @@ router.get("/", async (req, res) => {
           you,
           patients,
           doctors,
+          requests,
         });
       } else {
         res.render("HospitalSide/Profile/waiting");

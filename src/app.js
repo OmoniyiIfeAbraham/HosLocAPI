@@ -44,7 +44,7 @@ app.use("/api/v1", routes);
 // general routes
 app.use("/", require("./WebPortal/routes/index"));
 
- // super admin routes
+// super admin routes
 app.use("/super-admin", require("./WebPortal/routes/SuperAdminSide/index"));
 app.use(
   "/super-adminLogin",
@@ -91,6 +91,10 @@ app.use(
   require("./WebPortal/routes/HospitalSide/Doctors/doctors")
 );
 app.use(
+  "/viewBookings",
+  require("./WebPortal/routes/HospitalSide/Bookings/booking")
+);
+app.use(
   "/deleteDoctor",
   require("./WebPortal/routes/HospitalSide/Doctors/delete")
 );
@@ -99,8 +103,8 @@ app.use(
 app.use("/logout", require("./WebPortal/routes/logout"));
 
 // 404 page
-app.use(function(req, res, next) {
-  res.status(404).render('404');
+app.use(function (req, res, next) {
+  res.status(404).render("404");
 });
 
 module.exports = app;
